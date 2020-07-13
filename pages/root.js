@@ -1,18 +1,19 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Nav from '../components/nav';
+import Layout from '../components/layout';
+import Portfolio from '../components/portfolio';
 
 
 function Root() {
  return(
-    <>
+    <Layout>
         <Head><title>Home Page</title></Head>
-        <Nav />
+        
         <section>
             <h1>Home Page</h1>
-            <Link href="/about"><a>About</a></Link> <Link href="/contact"><a>Contact</a></Link>
+            <Portfolio />
         </section>
-    </>
+    </Layout>
     )
 }
 
