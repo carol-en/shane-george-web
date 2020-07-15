@@ -6,3 +6,21 @@
 .navi h1 {
     color: #1f1f1f;
 }
+
+
+.btn {
+    padding: .75rem;
+    background: #595959;
+    color: white;
+}
+
+.btn:hover {
+    cursor: pointer;
+    color: #595959;
+    background: white;
+}
+
+.active {
+    color: #595959;
+    background: white;
+}
