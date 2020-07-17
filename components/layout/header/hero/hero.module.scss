@@ -1,9 +1,22 @@
 
 
-.logo {
+a.logo {
     color: red;
+    text-transform: uppercase;
 }
 
-.logo a {
+a.about_link {
+    position: absolute;
     color: #f7efcf;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+a.contact_link {
+    position: absolute;
+    color: #f7efcf;
+    top: 0;
+    right: 0;
+    z-index: 3;
 }

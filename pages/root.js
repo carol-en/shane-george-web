@@ -8,11 +8,11 @@ function Root() {
  return(
     <Layout>
         <Head><title>Home Page</title></Head>
-        
-        <section>
+        <>
             <h1>Home Page</h1>
             <Portfolio />
-        </section>
+        </>
+
     </Layout>
     )
 }

@@ -1,11 +1,18 @@
-import Link from 'next/link';
 import style from './hero.module.scss';
+import Link from 'next/link';
+import ContactLink from './contactLink';
+import AboutLink from './aboutLink';
+import ShaneLogoLink from './shaneLogoLink';
 
-export default function Hero() {
+
+function Hero() {
     return (
-        <aside className={style.logo}>
-            <Link href="/"><a>Return</a></Link> <Link href="/about"><a>About</a></Link> <Link href="/contact"><a>Contact</a></Link>
-            <h1>Hero Component!</h1>
-        </aside>
+        <>
+        <AboutLink />
+        <ContactLink />
+        <ShaneLogoLink />
+        </>
     )
 }
+
+export default Hero;
