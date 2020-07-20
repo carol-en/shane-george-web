@@ -1,5 +1,5 @@
 import style from './portfolio.module.scss';
-import Nav from './nav';
+import Nav from '../../components/layout/nav';
 
 
 export default function Portfolio() {
