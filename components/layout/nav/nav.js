@@ -1,20 +1,21 @@
 import style from './nav.module.scss';
 import Link from 'next/link';
 
-//  function or conditionals for css classes?
+// https://www.google.com/search?q=passing+data+through+Link+nextjs&rlz=1C5CHFA_enUS503US503&oq=passing+data+through+Link+nextjs&aqs=chrome..69i57j33.6381j0j4&sourceid=chrome&ie=UTF-8
 
-export default function Nav() {
+export default function Nav(props) {
+    const tags = props.artList.map((tag, i) => {
+        if(i < 3) {
+            return (
+                <Link href={`/art/${tag.id}`}>
+                    <a className={style.btn} key={tag.id}>{tag.title}</a>
+                </Link>
+            )
+        }
+    });
     return (
         <nav className={style.navi}>
-            <Link href="/">
-                <a className={style.btn}>Test Return</a>
-            </Link>
-            <Link href="/art/2">
-                <a className={style.btn}>Test About</a>
-            </Link>
-            <Link href="/art/3">
-                <a className={style.btn}>Test Contact</a>
-            </Link>
+            {tags}
         </nav>
     )
 }

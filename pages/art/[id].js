@@ -9,11 +9,11 @@ import Nav from '../../components/layout/nav';
 const ArtWork = () => {
     const router = useRouter();
     const { id } = router.query;
+    console.log(router.query);
 
   return(
     <Layout>
         <Head><title>Dynamic Page</title></Head>
-        <Nav />
         <h1>Post: {id}</h1>
         <>
             <h1>This is a Dynamic Page</h1>
