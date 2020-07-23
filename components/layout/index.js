@@ -1,3 +1,15 @@
-import Layout from './layout';
+import Header from './header';
+import style from './layout.module.scss';
 
-export default Layout;
+
+export default function Layout(  { children } ) {
+
+    return(
+        <div className="container">
+            <Header />
+            <main>
+                {children}
+            </main>
+        </div>
+    )
+}

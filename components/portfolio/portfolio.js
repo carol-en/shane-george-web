@@ -19,7 +19,7 @@ function Portfolio(props) {
 
     return (
         <>
-        <Nav artList={artList}/>
+        <Nav artList={artList} />
         <h6 className={style.folio}>Portfolio Component!</h6>
         <section className={style.port}>
             {artWork}
