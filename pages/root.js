@@ -5,7 +5,7 @@ import Portfolio from '../components/portfolio';
 import fetch from 'isomorphic-unfetch';
 
 
-function Root(props) {
+const Root = (props) => {
  return(
     <Layout>
         <Head><title>Home Page</title></Head>
@@ -18,7 +18,7 @@ function Root(props) {
     )
 }
 
-Root.getInitialProps = async function() {
+Root.getInitialProps = async () => {
     const res = await fetch('https://jsonplaceholder.typicode.com/photos');
     const data = await res.json();
     return data;

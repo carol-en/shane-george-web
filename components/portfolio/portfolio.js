@@ -6,7 +6,7 @@ import Link from 'next/link';
 function Portfolio(props) {
     const photos = props.photos;
     const artList = [];
-     for(let index in photos) if(index <= 20) artList.push(photos[index]);
+     for(let index in photos) if(index <= 100) artList.push(photos[index]);
     const artWork = artList.map(art => { 
         return (
             <div key = {art.id} className={style.card}>
@@ -20,8 +20,8 @@ function Portfolio(props) {
     return (
         <>
         <Nav artList={artList}/>
+        <h6 className={style.folio}>Portfolio Component!</h6>
         <section className={style.port}>
-            <h6 className={style.folio}>Portfolio Component!</h6>
             {artWork}
         </section>
         </>
