@@ -4,10 +4,11 @@ import Head from 'next/head';
 import Nav from '../../../components/layout/nav';
 
 const ShowPage = (props) => {
-    console.warn('show', props);
+    // console.warn('show', props);
     const router = useRouter();
     const { show } = router.query;
     
+
     return (
         <>
             <Head><title>Dynamic Page</title></Head>

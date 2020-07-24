@@ -1,14 +1,23 @@
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router'
 import Head from 'next/head';
 import Link from 'next/link';
 import Nav from '../../components/layout/nav';
 import style from './filterart.module.scss';
 
-
+const Thumbnails = (props) => {
+    let { id, thumbnailUrl, url, title, albumId } = props.art;
+    return (
+        <div key ={id} className={style.card}>
+            <Link href={`/art/p/${id}`}>
+                <a>
+                    <img src={thumbnailUrl} alt={title} />
+                </a>
+            </Link>
+        </div>
+    )
+}
 
 const ArtWork = (props) => {
-    console.warn('filter', props);
-
     const router = useRouter();
     const { filterart } = router.query;
     const art = props;
@@ -25,15 +34,7 @@ const generateArtContent = () => {
         if(artAlbumId ===  paramsId) artList.push(art[i]);
     }
     // map artList array and add into content
-    artWork = artList.map(art => {  
-        return (
-            <div key ={art.id} className={style.card}>
-                    <a href={art.url} target="_blank" noreferrer="true">
-                        <img src={art.thumbnailUrl} alt={art.title} />
-                    </a>
-            </div>
-        )
-    })
+    artWork = artList.map(art => <Thumbnails art={art} /> )
 };
 
 generateArtContent();
@@ -43,7 +44,7 @@ return(
         <>
             <Head><title>Dynamic Page</title></Head>
             <Nav artList={artList}/>
-            <h1>Post: {filterart}</h1>
+            <h1>FilterArt: {filterart}</h1>
             <h1>This is a Dynamic Page</h1>
             <section className={style.port}>
                 {artWork}
