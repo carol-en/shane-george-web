@@ -10,8 +10,9 @@ const Link = ({ children, data, href }) => {
         e.preventDefault();
         router.push({
             pathname: href,
-            query: data
-        }, href);
+            query: data,
+            as: `/art/${data.id}`
+        });
     }
 
     return <a href="#" onClick={handleClick}>{children}</a>

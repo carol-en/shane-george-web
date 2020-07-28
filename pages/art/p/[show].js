@@ -4,10 +4,10 @@ import Head from 'next/head';
 import Nav from '../../../components/layout/nav';
 
 const ShowPage = (props) => {
-    // console.warn('show', props);
     const router = useRouter();
-    const { show } = router.query;
-    
+    const { show, albumId, id, title, url, thumbnailUrl } = router.query;
+
+    console.warn('show data ', router);
 
     return (
         <>
