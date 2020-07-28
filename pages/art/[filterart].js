@@ -1,9 +1,22 @@
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import Link from 'next/link';
 import Nav from '../../components/layout/nav';
 import style from './filterart.module.scss';
 
+const Link = ({ children, data, href }) => {
+    const router = useRouter();
+
+    const handleClick = e => {
+        e.preventDefault();
+        router.push({
+            pathname: href,
+            query: data
+        }, href);
+    }
+
+    return <a href="#" onClick={handleClick}>{children}</a>
+    
+}
 
 const Thumbnails = (props) => {
     const art = props.art;
@@ -25,10 +38,9 @@ const Thumbnails = (props) => {
             let { id, thumbnailUrl, url, title, albumId } = thumb;
             return (
                 <div key ={id} className={style.card}>
-                    <Link href={`/art/p/${id}`}>
-                        <a>
-                            <img src={thumbnailUrl} alt={title} />
-                        </a>
+                    {/* <Linx href={`/art/p/${id}`}>{title}</Linx> */}
+                    <Link data={thumb} href={`/art/p/${id}`}>
+                        <img src={thumbnailUrl} alt={title} />
                     </Link>
                 </div>
             )
