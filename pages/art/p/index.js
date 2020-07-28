@@ -1,15 +1,5 @@
-import Link from 'next/link';
-import Head from 'next/head';
+import Redirect from '../../../components/redirect';
 
-const ArtIndex = () => {
-    return (
-        <>
-            <Head><title>Art Index</title></Head>
-            <section>
-                <h1>Temp. Redirect to index?</h1>
-            </section>
-        </>
-    )
+export default function pIndex() {
+    return <Redirect />
 }
-
-export default ArtIndex;
