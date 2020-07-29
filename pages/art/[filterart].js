@@ -1,4 +1,4 @@
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Nav from '../../components/layout/nav';
 import style from './filterart.module.scss';
@@ -8,14 +8,13 @@ const Link = ({ children, data, href }) => {
 
     const handleClick = e => {
         e.preventDefault();
-        router.push({
+        router.push({ 
             pathname: href,
-            query: data,
-            as: `/art/${data.id}`
+            query: data
         });
     }
 
-    return <a href="#" onClick={handleClick}>{children}</a>
+    return <a onClick={handleClick}>{children}</a>
     
 }
 
@@ -39,7 +38,6 @@ const Thumbnails = (props) => {
             let { id, thumbnailUrl, url, title, albumId } = thumb;
             return (
                 <div key ={id} className={style.card}>
-                    {/* <Linx href={`/art/p/${id}`}>{title}</Linx> */}
                     <Link data={thumb} href={`/art/p/${id}`}>
                         <img src={thumbnailUrl} alt={title} />
                     </Link>
