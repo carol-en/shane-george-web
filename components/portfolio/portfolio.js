@@ -6,6 +6,7 @@ const Portfolio = (props) => {
     const router = useRouter();
     const id = router.pathname;
     const filterId = router.query.filterart;
+    const art = props.data;
 
     if(id === '/') return <AllArt data={props} />
     else if (filterId) return <FilteredArt data={props} />

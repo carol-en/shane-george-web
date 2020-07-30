@@ -25,7 +25,7 @@ const Thumbnails = (props) => {
         let { id, thumbnailUrl, url, title, albumId } = thumb;
         return (
             <div key ={id} className={style.card}>
-                <Link data={thumb} href={`/art/p/${id}`}>
+                <Link data={thumb} href={`/art/${id}`}>
                     <img src={thumbnailUrl} alt={title} />
                 </Link>
             </div>

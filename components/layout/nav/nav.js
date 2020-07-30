@@ -7,7 +7,7 @@ const Nav = (props) => {
         let { id, thumbnailUrl, url, title, albumId } = tag;
         if(i < 3) {
             return (
-                <Link href={`/art/${id}`}>
+                <Link href={`/${id}`}>
                     <a className={style.btn} key={id}>{title}</a>
                 </Link>
             )
