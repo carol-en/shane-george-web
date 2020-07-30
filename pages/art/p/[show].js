@@ -7,7 +7,7 @@ const ShowPage = (props) => {
     const router = useRouter();
     const { show, albumId, id, title, url, thumbnailUrl } = router.query;
 
-    console.warn('show data ', router);
+    // console.warn('show data ', router);
 
     return (
         <>
