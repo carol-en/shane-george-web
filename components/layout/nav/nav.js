@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 
 const Nav = (props) => {
-    const tags = props.artList.map((tag, i) => {
+const art = props.data;
+const artList = [];
+for(let i in art) artList.push(art[i]);
+
+
+    const tags = artList.map((tag, i) => {
         let { id, thumbnailUrl, url, title, albumId } = tag;
         if(i < 3) {
             return (

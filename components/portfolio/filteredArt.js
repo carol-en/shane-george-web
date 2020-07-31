@@ -48,14 +48,9 @@ const Thumbnails = (props) => {
     };
 
     generateArtContent();
-    return (
-        <>
-          <Head><title>Dynamic Page</title></Head>
-          <h1>FilterArt: {filterart}</h1>
-          <Nav artList={artList}/>
-          {artWork}
-        </>
-    )
+
+    return  <> {artWork} </>
+
 }
 
 
@@ -68,9 +63,14 @@ const FilteredArt = (props) => {
     if(filterart !== 'art') {
         // Content Starts Here
         return ( 
+            <>
+            <Head><title>Dynamic Page</title></Head>
+            <h1>FilterArt: {filterart}</h1>
+            <Nav data={art}/>
             <section className={style.port}>
                 <Thumbnails art={art} filterart={filterart} />
             </section>
+            </>
         )
     }
     else return <Redirect />
