@@ -57,7 +57,7 @@ const Thumbnails = (props) => {
 const FilteredArt = (props) => {
     const router = useRouter();
     const { filterart } = router.query;
-    const art = props.data.data;
+    const art = props.art;
 
 
     if(filterart !== 'art') {
@@ -65,7 +65,6 @@ const FilteredArt = (props) => {
         return ( 
             <>
             <Head><title>Dynamic Page</title></Head>
-            <h1>FilterArt: {filterart}</h1>
             <Nav data={art}/>
             <section className={style.port}>
                 <Thumbnails art={art} filterart={filterart} />

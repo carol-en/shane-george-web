@@ -38,12 +38,11 @@ const Thumbnails = (props) => {
 
 function allArt(props) {
     const router = useRouter();
-    const art = props.data.photos;
+    const art = props.art;
     return (
         <>
         <Head><title>Portfolio Component!</title></Head>
         <Nav data={art} />
-        <h6 className={style.folio}>Portfolio Component!</h6>
         <section className={style.port}>
             <Thumbnails art={art}  />
         </section>

@@ -8,8 +8,7 @@ const Root = (props) => {
  return(
     <>
         <Head><title>Home Page</title></Head>
-            <h1>Home Page</h1>
-            <Portfolio photos={props}/>
+            <Portfolio data={props}/>
     </>
     )
 }
