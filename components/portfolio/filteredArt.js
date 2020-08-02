@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Nav from '../../components/layout/nav';
-import Redirect from '../redirect';
 import style from './portfolio.module.scss';
 
 const Link = ({ children, data, href }) => {
@@ -21,7 +19,7 @@ const Link = ({ children, data, href }) => {
 
 const Thumbnails = (props) => {
     const art = props.art;
-    let filterart = props.filterart;
+    let slug = props.slug;
     const artList = [];
     let artWork;
 
@@ -30,7 +28,7 @@ const Thumbnails = (props) => {
         // loop data then push into artList
         for(let i in art) {  
             let artAlbumId = art[i].albumId;
-            let paramsId = parseInt(filterart,10);
+            let paramsId = parseInt(slug,10);
             // if album id matchs url id
             if(artAlbumId ===  paramsId) artList.push(art[i]);
         }
@@ -56,23 +54,18 @@ const Thumbnails = (props) => {
 
 const FilteredArt = (props) => {
     const router = useRouter();
-    const { filterart } = router.query;
+    // const { filterart } = router.query;
+    const slug = router.query.page[router.query.page.length -1];
     const art = props.art;
 
-
-    if(filterart !== 'art') {
-        // Content Starts Here
         return ( 
             <>
             <Head><title>Dynamic Page</title></Head>
-            <Nav data={art}/>
             <section className={style.port}>
-                <Thumbnails art={art} filterart={filterart} />
+                <Thumbnails art={art} slug={slug} />
             </section>
             </>
         )
-    }
-    else return <Redirect />
 }
 
 export default FilteredArt;

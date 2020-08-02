@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import style from './portfolio.module.scss';
-import Nav from '../../components/layout/nav';
 
 
 const Link = ({ children, data, href }) => {
@@ -39,10 +38,11 @@ const Thumbnails = (props) => {
 function allArt(props) {
     const router = useRouter();
     const art = props.art;
+
     return (
         <>
+        <h1>AllArt</h1>
         <Head><title>Portfolio Component!</title></Head>
-        <Nav data={art} />
         <section className={style.port}>
             <Thumbnails art={art}  />
         </section>

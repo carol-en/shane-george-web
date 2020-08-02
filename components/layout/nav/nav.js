@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 
 const Nav = (props) => {
-const art = props.data;
+const art = props.art;
 const artList = [];
 for(let i in art) artList.push(art[i]);
 
@@ -12,7 +12,7 @@ for(let i in art) artList.push(art[i]);
         let { id, thumbnailUrl, url, title, albumId } = tag;
         if(i < 3) {
             return (
-                <Link href={`/${id}`}>
+                <Link href={`/art/${id}`}>
                     <a className={style.btn} key={id}>{title}</a>
                 </Link>
             )

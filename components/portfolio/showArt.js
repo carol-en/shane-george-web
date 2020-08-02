@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Nav from '../../components/layout/nav';
 
 const PrevLink = (props) => {
     let { albumId, id, title, url, thumbnailUrl } = props.prev;
@@ -15,20 +14,19 @@ const NextLink = (props) => {
 
 
 const ShowPage = (props) => {
+    const art = props.art;
     const router = useRouter();
     const { show, albumId, id, title, url, thumbnailUrl } = router.query;
     let prev;
     let next;
     const findNodes = (obj) => {
-        let nodes = [ {'prev': props[obj-2]}, {'next': props[obj]} ];
+        let nodes = [ {'prev': art[obj-2]}, {'next': art[obj]} ];
         nodes.map( lnk => { if (lnk.prev) prev = lnk.prev; else if (lnk.next) next = lnk.next; });
     }
     findNodes(id);
-    
 
     return (
         <>
-        <Nav data={props} />
             <Head><title>Dynamic Page {title}</title></Head>
             <section>
                 <h1>{title}</h1>
