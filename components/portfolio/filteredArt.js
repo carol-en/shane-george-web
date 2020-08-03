@@ -1,22 +1,9 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { Link } from './links';
 import style from './portfolio.module.scss';
 
-const Link = ({ children, data, href }) => {
-    const router = useRouter();
-
-    const handleClick = e => {
-        e.preventDefault();
-        router.push({ 
-            pathname: href,
-            query: data
-        });
-    }
-
-    return <a onClick={handleClick}>{children}</a>
-    
-}
-
+// Generate Thumbnails
 const Thumbnails = (props) => {
     const art = props.art;
     let slug = props.slug;
@@ -54,7 +41,6 @@ const Thumbnails = (props) => {
 
 const FilteredArt = (props) => {
     const router = useRouter();
-    // const { filterart } = router.query;
     const slug = router.query.page[router.query.page.length -1];
     const art = props.art;
 

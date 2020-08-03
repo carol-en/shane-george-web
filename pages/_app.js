@@ -15,8 +15,11 @@ function MyApp({ Component, pageProps, data }) {
   MyApp.getInitialProps = async (appContext) => {
     // calls page's `getInitialProps` and fills `appProps.pageProps`
     const appProps = await App.getInitialProps(appContext);
-    const res = await fetch('https://jsonplaceholder.typicode.com/photos');
-    const data = await res.json();
+    const photos = await fetch('https://jsonplaceholder.typicode.com/photos');
+    const pages = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const posts = await pages.json();
+    const artWork = await photos.json();
+    const data = await {posts, artWork}
     return { ...appProps, data }
 }
 

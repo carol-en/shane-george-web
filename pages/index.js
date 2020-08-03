@@ -2,7 +2,7 @@ import AllArt from '../components/portfolio/allArt';
 import Nav from '../components/layout/nav';
 
 const IndexPage = (props) => {
-    const art = props;
+    const art = props.artWork;
 
     return ( 
     <>

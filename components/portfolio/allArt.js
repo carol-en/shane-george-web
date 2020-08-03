@@ -8,6 +8,7 @@ const Link = ({ children, data, href }) => {
 
     const handleClick = e => {
         e.preventDefault();
+        console.log(data)
         router.push({ 
             pathname: href,
             query: data
@@ -38,7 +39,6 @@ const Thumbnails = (props) => {
 function allArt(props) {
     const router = useRouter();
     const art = props.art;
-
     return (
         <>
         <h1>AllArt</h1>

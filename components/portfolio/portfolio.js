@@ -10,15 +10,16 @@ const Portfolio = (props) => {
     const MainPgId = router.query.page;
     const slug = MainPgId[MainPgId.length-1];
     const numSlug = Number(slug);
-    const existingArt = art[numSlug];
+    const existingArt = art.artWork[numSlug];
     const artId = router.query.id;
 
+    // console.log(router.query.page[1])
     return (
         <>
         <Nav art={art}/>
         { (slug === 'art') ? <Redirect /> :
         (existingArt && !artId) ? <FilteredArt art={art} /> :
-        (artId) ? <ShowArt art={art} /> :
+        (existingArt && artId) ? <ShowArt art={art} /> :
         <h1>Go Back home or 404</h1> }
         </>
         )
