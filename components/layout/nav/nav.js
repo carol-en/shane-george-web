@@ -3,12 +3,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 
 const Nav = (props) => {
-const art = props.art;
+const art = props.data;
 const artList = [];
-for(let i in art) artList.push(art[i]);
+let tags;
 
-
-    const tags = artList.map((tag, i) => {
+const generateNavigate = () => {
+    for(let i in art) artList.push(art[i]);
+    // Generate Nav
+    tags = artList.map((tag, i) => {
         let { id, thumbnailUrl, url, title, albumId } = tag;
         if(i < 3) {
             return (
@@ -18,8 +20,14 @@ for(let i in art) artList.push(art[i]);
             )
         }
     });
+}
+generateNavigate();
+
     return (
         <nav className={style.navi}>
+             <Link href="/">
+                <a className={style.btn} >All Art</a>
+            </Link>
             {tags}
         </nav>
     )

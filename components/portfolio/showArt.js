@@ -4,7 +4,7 @@ import { PrevLink, NextLink } from './links';
 
 
 const ShowPage = (props) => {
-    const art = props.art;
+    const art = props.art.artWork;
     const router = useRouter();
     const {  albumId, id, title, url, thumbnailUrl } = router.query;
     let prev;
@@ -16,7 +16,6 @@ const ShowPage = (props) => {
         nodes.map( lnk => { if (lnk.prev) prev = lnk.prev; else if (lnk.next) next = lnk.next; });
     }
     findNodes(id);
-
 
     return (
         <>

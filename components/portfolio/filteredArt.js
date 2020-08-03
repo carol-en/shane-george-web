@@ -5,7 +5,7 @@ import style from './portfolio.module.scss';
 
 // Generate Thumbnails
 const Thumbnails = (props) => {
-    const art = props.art;
+    const art = props.art.artWork;
     let slug = props.slug;
     const artList = [];
     let artWork;

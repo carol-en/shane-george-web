@@ -4,9 +4,8 @@ import App from 'next/app';
 import fetch from 'isomorphic-unfetch';
 
 function MyApp({ Component, pageProps, data }) {
-
     return (
-      <Layout>
+      <Layout data={data}>
         <Component {...pageProps} {...data} />
       </Layout>
     )
@@ -17,9 +16,9 @@ function MyApp({ Component, pageProps, data }) {
     const appProps = await App.getInitialProps(appContext);
     const photos = await fetch('https://jsonplaceholder.typicode.com/photos');
     const pages = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const posts = await pages.json();
+    const entry = await pages.json();
     const artWork = await photos.json();
-    const data = await {posts, artWork}
+    const data = await {entry, artWork}
     return { ...appProps, data }
 }
 
