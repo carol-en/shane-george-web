@@ -1,11 +1,17 @@
 import style from './hero.module.scss';
 import Link from 'next/link';
-import ContactLink from './contactLink';
-import AboutLink from './aboutLink';
 import ShaneLogoLink from './shaneLogoLink';
 import { useRouter } from 'next/router';
 
+const PageLinks = ({ entryList }) => {
 
+    const pgLnks = entryList.map(link => {
+        let { userId, id, title, body } = link;
+    return  <Link href={`/p/${id}`}><a key={id} class={style.links}>{title}</a></Link>
+    });
+
+    return <nav class={style.nav}> {pgLnks} </nav>
+}
 
 function Hero({ data }) {
     const router = useRouter();
@@ -20,21 +26,16 @@ function Hero({ data }) {
 
     generateLinks();
 
-    if(entryCheck) {
-        console.log(entryCheck, entryList)
-    }
-
-    //  Create function class to make dynamic page links for /p/1...etc
     // Create Contentful account to populate real data
     //  Check docs to merge NextJS and Contentful
 
     return (
         <>
-        <AboutLink />
-        <ContactLink />
+        <PageLinks entryList={entryList} />
         <ShaneLogoLink />
         </>
     )
 }
 
 export default Hero;
+

@@ -6,6 +6,9 @@ const Nav = (props) => {
 const art = props.data;
 const artList = [];
 let tags;
+const router = useRouter();
+const pagesParam = router.query.param;
+
 
 const generateNavigate = () => {
     for(let i in art) artList.push(art[i]);
@@ -23,14 +26,18 @@ const generateNavigate = () => {
 }
 generateNavigate();
 
-    return (
-        <nav className={style.navi}>
-             <Link href="/">
-                <a className={style.btn} >All Art</a>
-            </Link>
-            {tags}
-        </nav>
-    )
+    if(pagesParam) return null;
+    else {
+        return (
+            
+            <nav className={style.navi}>
+                <Link href="/">
+                    <a className={style.btn} >All Art</a>
+                </Link>
+                {tags}
+            </nav>
+        )
+    }
 }
 
 export default Nav;

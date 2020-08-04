@@ -41,7 +41,6 @@ function allArt(props) {
     const art = props.art;
     return (
         <>
-        <h1>AllArt</h1>
         <Head><title>Portfolio Component!</title></Head>
         <section className={style.port}>
             <Thumbnails art={art}  />
