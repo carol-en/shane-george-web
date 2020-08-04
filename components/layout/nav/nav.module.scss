@@ -2,6 +2,10 @@
 .navi {
     background: #ebebeb;
     text-align: center;
+    width: 100%;
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: center;
 }
 
 .navi h1 {

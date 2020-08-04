@@ -1,31 +1,26 @@
-import style from './portfolio.module.scss';
-import Nav from '../../components/layout/nav';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import FilteredArt from '../portfolio/filteredArt';
+import ShowArt from '../portfolio/showArt';
+import Redirect from '../redirect';
 
+const Portfolio = (props) => {
+    const art = props.art;
+    const router = useRouter();
+    const MainPgId = router.query.page;
+    const slug = MainPgId[MainPgId.length-1];
+    const numSlug = Number(slug);
+    const existingArt = art.artWork[numSlug];
+    const artId = router.query.id;
 
-function Portfolio(props) {
-    const photos = props.photos;
-    const artList = [];
-     for(let index in photos) if(index <= 100) artList.push(photos[index]);
-    const artWork = artList.map(art => { 
-        return (
-            <div key = {art.id} className={style.card}>
-                    <a href={art.url} target="_blank" noreferrer="true">
-                        <img src={art.thumbnailUrl} alt={art.title} />
-                    </a>
-            </div>
-        )
-    });
-
+    
     return (
         <>
-        <Nav artList={artList} />
-        <h6 className={style.folio}>Portfolio Component!</h6>
-        <section className={style.port}>
-            {artWork}
-        </section>
+            { (slug === 'art') ? <Redirect /> :
+            (existingArt && !artId) ? <FilteredArt art={art} /> :
+            (existingArt && artId) ? <ShowArt art={art} /> :
+            <h1>Go Back home or 404</h1> }
         </>
-    )
-}
+        )
+    }
 
 export default Portfolio;

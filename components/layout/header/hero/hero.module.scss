@@ -5,18 +5,14 @@ a.logo {
     text-transform: uppercase;
 }
 
-a.about_link {
-    position: absolute;
+a.links{
     color: #f7efcf;
-    top: 0;
-    left: 0;
-    z-index: 2;
 }
 
-a.contact_link {
-    position: absolute;
-    color: #f7efcf;
-    top: 0;
-    right: 0;
-    z-index: 3;
+
+
+nav.nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }

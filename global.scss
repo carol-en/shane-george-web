@@ -20,3 +20,12 @@ body {
 button {
   border: 0;
 }
+
+a {
+  color: #3b81b6;
+  text-decoration: underline;
+}
+
+a:hover {
+  cursor: pointer;
+}

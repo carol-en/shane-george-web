@@ -1,17 +1,8 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import Portfolio from '../components/portfolio';
-import fetch from 'isomorphic-unfetch';
+import AllArt from '../components/portfolio/allArt';
 
-
-const Root = (props) => {
- return(
-    <>
-        <Head><title>Home Page</title></Head>
-            <h1>Home Page</h1>
-            <Portfolio photos={props}/>
-    </>
-    )
+const IndexPage = (props) => {
+    const art = props.artWork;
+    return <> <AllArt art={art} /> </>
 }
 
-export default Root;
+export default IndexPage;
