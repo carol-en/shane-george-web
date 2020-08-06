@@ -19,6 +19,7 @@ const Link = ({ children, data, href }) => {
 
 const Thumbnails = (props) => {
     const art = props.art;   
+
     const artList = [];
     for(let index in art) if(index <= 100) artList.push(art[index]);
     const artWork = artList.map(thumb => { 

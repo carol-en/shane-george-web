@@ -7,10 +7,10 @@ const PageLinks = ({ entryList }) => {
 
     const pgLnks = entryList.map(link => {
         let { userId, id, title, body } = link;
-    return  <Link href={`/p/${id}`}><a key={id} class={style.links}>{title}</a></Link>
+    return  <Link href={`/p/${id}`} key={id}><a className={style.links}>{title}</a></Link>
     });
 
-    return <nav class={style.nav}> {pgLnks} </nav>
+    return <nav className={style.nav}> {pgLnks} </nav>
 }
 
 function Hero({ data }) {
@@ -26,8 +26,6 @@ function Hero({ data }) {
 
     generateLinks();
 
-    // Create Contentful account to populate real data
-    //  Check docs to merge NextJS and Contentful
 
     return (
         <>

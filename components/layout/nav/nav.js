@@ -17,8 +17,8 @@ const generateNavigate = () => {
         let { id, thumbnailUrl, url, title, albumId } = tag;
         if(i < 3) {
             return (
-                <Link href={`/art/${id}`}>
-                    <a className={style.btn} key={id}>{title}</a>
+                <Link href={`/art/${id}`} key={id}>
+                    <a className={style.btn}>{title}</a>
                 </Link>
             )
         }
