@@ -13,7 +13,7 @@ const PageLinks = ({ entryList }) => {
     return <nav className={style.nav}> {pgLnks} </nav>
 }
 
-function Hero({ data }) {
+function Hero({ data, pgEntries }) {
     const router = useRouter();
     const slug = router.query.param;
     const entryList = [];
@@ -25,8 +25,7 @@ function Hero({ data }) {
     }
 
     generateLinks();
-
-
+    
     return (
         <>
         <PageLinks entryList={entryList} />

@@ -40,6 +40,8 @@ const Thumbnails = (props) => {
 function allArt(props) {
     const router = useRouter();
     const art = props.art;
+
+    // console.log(props.artWork)
     return (
         <>
         <Head><title>Portfolio Component!</title></Head>

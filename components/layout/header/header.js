@@ -6,9 +6,9 @@ export default function Header({ data }) {
     return (
         <>
         <header className={style.banner}>
-            <Hero data={data.entry} />
+            <Hero data={data.entry} pgEntries={data.pgEntries}/>
         </header>
-        <Nav data={data.artWork} />
+        <Nav data={data.artWork} artPieces={data.artPieces}/>
         </>
     )
 }

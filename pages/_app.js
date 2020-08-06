@@ -10,11 +10,11 @@ const contentfulClient = createClient({
 })
 
 
-function MyApp({ Component, pageProps, data }) {
+function MyApp({ Component, pageProps, data, artEntries, pageEntries }) {
   
     return (
       <Layout data={data}>
-        <Component {...pageProps} {...data} />
+        <Component {...pageProps} {...data}/>
       </Layout>
     )
   }
@@ -36,9 +36,10 @@ function MyApp({ Component, pageProps, data }) {
         "content_type": "page",
         "order":"sys.createdAt"
         }));
-    const artPieces = await artEntries.items;
-    const pgEntries = await pageEntries.items;
-    const data = await {entry, artWork, artPieces, pgEntries }
+    const artPieces =  artEntries.items;
+    const pgEntries =  pageEntries.items;
+    
+    const data = await { entry, artWork, artPieces, pgEntries }
 
     return { ...appProps, data }
 }
