@@ -6,10 +6,9 @@ import AllArt from '../components/portfolio/allArt';
 
 const IndexPage = (props) => {
     const art = props.artWork;
+    const artt = props.artPieces;
 
-// console.log('index.js ', props)
-
-    return <> <AllArt art={art} artWork={props.artPieces} /> </>
+    return <> <AllArt art={art} artt={artt} /> </>
 }
 
 export default IndexPage;

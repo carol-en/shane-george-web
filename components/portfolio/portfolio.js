@@ -12,7 +12,8 @@ const Portfolio = (props) => {
     const existingArt = art.artWork[numSlug];
     const artId = router.query.id;
 
-    
+    console.log(props);
+
     return (
         <>
             { (slug === 'art') ? <Redirect /> :

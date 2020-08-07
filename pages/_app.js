@@ -5,8 +5,8 @@ import fetch from 'isomorphic-unfetch';
 const { createClient } = require("contentful");
 
 const contentfulClient = createClient({
-  space: "6jizbkvr12of",
-  accessToken: "L60lNNHrqGGj8Y3zXd-cnI58eWKKwwcSCxyt1Z9Pm2Q"
+  space: "kj7xlq8esifs",
+  accessToken: "74HPxCQEHQghNRrf2D3jhdZEsur85j6zQ0Hfjjwhq1g"
 })
 
 
