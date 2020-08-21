@@ -14,14 +14,15 @@ const Thumbnails = (props) => {
         for(let index in art) artList.push(art[index]);
         const artThumbs = artList.map((thumb, i) => { 
             let { artWork } = thumb.fields;
-    
+            let { id } = thumb.sys;
+
             let thumbs = artWork.map((entry, i) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
-                let { id } = entry.sys;
                 const ratio = "?fit=thumb&f=face&h=200&w=200";
                 const thumbnail = `${url}${ratio}`; 
 
+                console.log(id)
                 if(i < 1) {
                     return (   
                         <Link href={`/art/${id}`} key={id}>
