@@ -16,16 +16,15 @@ const Thumbnails = (props) => {
             let { artWork } = thumb.fields;
             let { id } = thumb.sys;
 
-            let thumbs = artWork.map((entry, i) => {
+            let thumbs = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
                 const ratio = "?fit=thumb&f=face&h=200&w=200";
                 const thumbnail = `${url}${ratio}`; 
 
-                console.log(id)
-                if(i < 1) {
+                if(j < 1) { 
                     return (   
-                        <Link href={`/art/${id}`} key={id}>
+                        <Link href={`/art/${i}/${id}`} key={id}>
                             <a><img src={thumbnail} alt={title} /></a>
                         </Link>
                     )
