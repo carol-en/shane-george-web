@@ -3,8 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 
-const ShowPage = (props) => {
-    const art = props.art.artPieces; // Art props
+const ShowPage = ({ art }) => {
     const router = useRouter(); 
     const params = router.query.page; // Get all params
     const slug = params[params.length-1]; // Get id params
