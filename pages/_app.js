@@ -22,10 +22,8 @@ function MyApp({ Component, pageProps, data, artEntries, pageEntries }) {
   MyApp.getInitialProps = async (appContext) => {
     // calls page's `getInitialProps` and fills `appProps.pageProps`
     const appProps = await App.getInitialProps(appContext);
-    const photos = await fetch('https://jsonplaceholder.typicode.com/photos');
     const pages = await fetch('https://jsonplaceholder.typicode.com/posts');
     const entry = await pages.json();
-    const artWork = await photos.json();
 
     const artEntries = await contentfulClient.getEntries(({
       "content_type": "artWork",
@@ -39,11 +37,11 @@ function MyApp({ Component, pageProps, data, artEntries, pageEntries }) {
 
     const artTags = await contentfulClient.getContentType("artWork");
 
-    const artPieces =  artEntries.items;
+    const art =  artEntries.items;
     const pgEntries =  pageEntries.items;
     const tagsList = artTags.fields[2].items.validations[0].in;
     
-    const data = await { entry, artWork, artPieces, pgEntries, tagsList }
+    const data = await { entry, art, pgEntries, tagsList }
 
     return { ...appProps, data }
 }

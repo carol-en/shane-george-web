@@ -5,7 +5,7 @@ import style from './portfolio.module.scss';
 
 const FilteredArt = ({ art }) => {
     const filteredArt = art.artPieces;
-
+    
     return (
         <>
         <Head><title>Shane George Art</title></Head>
