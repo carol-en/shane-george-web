@@ -1,30 +1,27 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { PrevLink, NextLink } from './links';
-import Redirect from '../redirect';
 
 const ShowPage = (props) => {
     const art = props.art.artPieces; // Art props
     const router = useRouter(); 
     const params = router.query.page; // Get all params
     const slug = params[params.length-1]; // Get id params
-    const artI = Number(params[1]); // Get Index of entry from params
+    const slugNum = Number(params[1]); // Get Index of entry from params
     let prev;
     let next;
     let entry;
-    const checkEntryData = (i) => { // Check if entry exists
-        if(art[i]) {
-            entry = art[i + 2];
-            if(art[i + 1]) next = { 'data': art[i + 1], 'arr': i + 1 }; 
+    const checkEntryData = (i, art) => { // Check if entry exists
+        let entryId = art[i].sys.id;
+        if(art[i] && slug === entryId) {
+            entry = art[i];
             // if next item exists, save it
-            if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
+            if(art[i + 1]) next = { 'data': art[i + 1], 'arr': i + 1 }; 
             // if previous item exists, save it
+            if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
         }
     }
-    checkEntryData(artI);
-
-    console.log(entry)
-
+    checkEntryData(slugNum, art);
     return <> {entry ? <ShowContent prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
 }
 
