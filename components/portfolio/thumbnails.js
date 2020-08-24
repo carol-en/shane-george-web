@@ -2,15 +2,14 @@ import Link from 'next/link';
 import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
 
-const Thumbnails = (props) => { 
+const Thumbnails = ({ art }) => { 
     const router = useRouter();
     let { pathname } = router;
-    const art = props.art;
     const artList = [];
     let thumbnails;
 
 
-    const generateThumbnails = () => {
+    const generateThumbnails = (art) => {
         for(let index in art) artList.push(art[index]);
         const artThumbs = artList.map((thumb, i) => { 
             let { artWork } = thumb.fields;
@@ -34,9 +33,12 @@ const Thumbnails = (props) => {
        });
        thumbnails =  artThumbs;
     }
-    generateThumbnails();
+    generateThumbnails(art);
 
-    if(pathname === '/') return <>{thumbnails}</>
+    return (
+        <>{thumbnails}</>
+    )
+
 }
 
 export default Thumbnails;

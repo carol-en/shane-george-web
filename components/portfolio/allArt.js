@@ -3,10 +3,11 @@ import Head from 'next/head';
 import Thumbnails from './thumbnails';
 import style from './portfolio.module.scss';
 
-function allArt(props) {
+function allArt({ artt }) {
     const router = useRouter();
-    const art = props.artt;
+    const art = artt;
 
+        console.log(art)
     return (
         <>
         <Head><title>Shane George Art</title></Head>

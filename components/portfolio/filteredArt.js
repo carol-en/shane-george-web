@@ -4,56 +4,58 @@ import Link from 'next/link';
 import style from './portfolio.module.scss';
 
 // Generate Thumbnails
-const Thumbnails = (props) => {
-    const art = props.art.artWork;
-    let slug = props.slug;
+const Thumbnails = ({ art }) => {
+    const router = useRouter();
+    let slug = router.query.page[router.query.page.length -1];
     const artList = [];
-    let artWork;
+    let thumbnails;
 
    // func: takes props, loops to make array, maps array to generate & return content
-    const generateArtContent = () => {
-        // loop data then push into artList
-        for(let i in art) {  
-            let artAlbumId = art[i].albumId;
-            let paramsId = parseInt(slug,10);
-            // if album id matchs url id
-            if(artAlbumId ===  paramsId) artList.push(art[i]);
+    const generateThumbnails = (art) => {
+        for(let index in art) {
+            let artTags = art[index].fields.category[0];
+            if(artTags === slug) artList.push(art[index]);
         }
-        // map artList array and add into content
-        artWork = artList.map((thumb) => {
-            let { id, thumbnailUrl, url, title, albumId } = thumb;
-            return (
-                <div key ={id} className={style.card}>
-                    <Link data={thumb} href={`/art/${id}`}>
-                        <img src={thumbnailUrl} alt={title} />
-                    </Link>
-                </div>
-            )
-        })
-    };
+        const artThumbs = artList.map((thumb, i) => { 
+            let { artWork } = thumb.fields;
+            let { id } = thumb.sys;
 
-    generateArtContent();
+            let thumbs = artWork.map((entry, j) => {
+                let { title } = entry.fields;
+                let { url } = entry.fields.file;
+                const ratio = "?fit=thumb&f=face&h=200&w=200";
+                const thumbnail = `${url}${ratio}`; 
 
-    return  <> {artWork} </>
+                if(j < 1) { 
+                    return (   
+                        <Link href={`/art/${i}/${id}`} key={id}>
+                            <a><img src={thumbnail} alt={title} /></a>
+                        </Link>
+                    )
+                }
+            });
+            return  <div className={style.card} key={i}>{thumbs}</div>
+       });
+       thumbnails =  artThumbs;
+    }
+
+    generateThumbnails(art);
+    return  <> {thumbnails} </>
 
 }
 
 
-const FilteredArt = (props) => {
-    const router = useRouter();
-    const slug = router.query.page[router.query.page.length -1];
-    const art = props.art;
+const FilteredArt = ({ art }) => {
+    const filteredArt = art.artPieces;
 
-    console.log(props)
-
-        return ( 
-            <>
-            <Head><title>Dynamic Page</title></Head>
-            <section className={style.port}>
-                <Thumbnails art={art} slug={slug} />
-            </section>
-            </>
-        )
+    return (
+        <>
+        <Head><title>Shane George Art</title></Head>
+        <section className={style.port}>
+            <Thumbnails art={filteredArt} />
+        </section>
+        </>
+    )
 }
 
 export default FilteredArt;
