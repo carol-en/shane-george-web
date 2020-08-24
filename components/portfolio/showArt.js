@@ -12,13 +12,15 @@ const ShowPage = (props) => {
     let next;
     let entry;
     const checkEntryData = (i, art) => { // Check if entry exists
-        let entryId = art[i].sys.id;
-        if(art[i] && slug === entryId) {
-            entry = art[i];
-            // if next item exists, save it
-            if(art[i + 1]) next = { 'data': art[i + 1], 'arr': i + 1 }; 
-            // if previous item exists, save it
-            if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
+        if(art[i]) { // if this entry exists
+            let entryId = art[i].sys.id; // get entry's id
+            if(slug === entryId) { //check of slug id matches entry id
+                entry = art[i];
+                // if next item exists, save it
+                if(art[i + 1]) next = { 'data': art[i + 1], 'arr': i + 1 }; 
+                // if previous item exists, save it
+                if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
+            }
         }
     }
     checkEntryData(slugNum, art);
@@ -26,26 +28,19 @@ const ShowPage = (props) => {
 }
 
 const ShowContent = ( {prev, next, entry }) => {
-    let { title, description, category, artWork } = entry.fields;
-
-    // Find library for markdown
-
+    let { title, artWork } = entry.fields;
     return (
         <>
-            <Head><title>Dynamic Page {title}</title></Head>
+            <Head><title>{title}</title></Head>
             <section>
                     <Artwork artWork={artWork} />
-                    <aside>
-                        <h1>Title: {title}</h1>
-                        <h1>Category: {category.map(tag => tag)}</h1>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
-                    </aside>
+                    <ArtContent entry={entry} />
+                
+                    {/* Prev & Next art links */}
                     {prev && <PrevLink prev={prev} /> } 
                     {next && <NextLink next={next} /> }
-                </section>
-            </>
+            </section>
+        </>
     )
 }
 
@@ -63,6 +58,20 @@ const Artwork = ({ artWork }) => {
         )
     })
     return <figure>{art}</figure>
+}
+
+const ArtContent = ({ entry }) => {
+    let { title, category, description } = entry.fields;
+    // Find library for markdown
+    return (
+        <aside>
+            <h1>Title: {title}</h1>
+            <h2>Category: {category.map(tag => tag)}</h2>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+        </aside>
+    )
 }
 
 export default ShowPage;

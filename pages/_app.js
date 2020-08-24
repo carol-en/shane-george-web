@@ -29,17 +29,21 @@ function MyApp({ Component, pageProps, data, artEntries, pageEntries }) {
 
     const artEntries = await contentfulClient.getEntries(({
       "content_type": "artWork",
+      "order":"sys.createdAt",
+      }));
+
+    const pageEntries = await contentfulClient.getEntries(({
+      "content_type": "page",
       "order":"sys.createdAt"
       }));
 
-      const pageEntries = await contentfulClient.getEntries(({
-        "content_type": "page",
-        "order":"sys.createdAt"
-        }));
+    const artTags = await contentfulClient.getContentType("artWork");
+
     const artPieces =  artEntries.items;
     const pgEntries =  pageEntries.items;
+    const tagsList = artTags.fields[2].items.validations[0].in;
     
-    const data = await { entry, artWork, artPieces, pgEntries }
+    const data = await { entry, artWork, artPieces, pgEntries, tagsList }
 
     return { ...appProps, data }
 }
