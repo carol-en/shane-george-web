@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { PrevLink, NextLink } from './links';
+import Link from 'next/link';
+
 
 const ShowPage = (props) => {
     const art = props.art.artPieces; // Art props
@@ -73,5 +74,21 @@ const ArtContent = ({ entry }) => {
         </aside>
     )
 }
+
+    // Link to previous art component
+    const PrevLink = ({ prev }) => {
+        let { id } = prev.data.sys;
+        let i = prev.arr;
+
+        return <Link href={`/art/${i}/${id}`}><a>Previous Art</a></Link>;
+    }
+
+    // Link to next art component
+    const NextLink = ({ next }) => {
+        let { id } = next.data.sys;
+        let i = next.arr;
+
+        return <Link href={`/art/${i}/${id}`}><a>Next Art</a></Link>;
+    }
 
 export default ShowPage;

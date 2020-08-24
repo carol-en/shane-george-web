@@ -3,28 +3,21 @@ import FilteredArt from '../portfolio/filteredArt';
 import ShowArt from '../portfolio/showArt';
 import Redirect from '../redirect';
 
-const Portfolio = (props) => {
-    const art = props.art;
-    const artt = props.art.artPieces;
+const Portfolio = ( { art }) => {
+    let { artPieces, tagsList } = art;
     const router = useRouter();
-    const MainPgId = router.query.page;
-    const slug = MainPgId[MainPgId.length-1];
-    let artEntryId;
-    const getEntryIds = () => {
-        artt.map(entry => {
+    const paramId = router.query.page;
+    const slug = paramId[paramId.length-1];
+    const artId = artPieces.map(entry => {
             let { id } = entry.sys;
-            if(slug === id) artEntryId = id;
+            if(slug === id) id;
         });
-        return artEntryId;
-    }
-    getEntryIds();
-    const existingArt = art.artWork[slug];
 
     return (
         <>
             { (slug === 'art') ? <Redirect /> :
-            (existingArt && !artId) ? <FilteredArt art={art} /> :
-            (slug && artEntryId) ? <ShowArt art={art} /> :
+            (tagsList.includes(slug)) ? <FilteredArt art={art} /> :
+            (slug && artId) ? <ShowArt art={art.artPieces} /> :
             <h1>Go Back home or 404</h1> }
         </>
         )

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Link } from './links';
+import Link from 'next/link';
 import style from './portfolio.module.scss';
 
 // Generate Thumbnails
@@ -43,6 +43,8 @@ const FilteredArt = (props) => {
     const router = useRouter();
     const slug = router.query.page[router.query.page.length -1];
     const art = props.art;
+
+    console.log(props)
 
         return ( 
             <>
