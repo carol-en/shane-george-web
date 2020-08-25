@@ -44,7 +44,7 @@ const FilteredArt = (props) => {
     const slug = router.query.page[router.query.page.length -1];
     const art = props.art;
 
-    console.log(props)
+    console.log(art)
 
         return ( 
             <>
