@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Link from 'next/link';
+import Thumbnails from './thumbnails';
 import style from './portfolio.module.scss';
 
+<<<<<<< HEAD
 // Generate Thumbnails
 const Thumbnails = (props) => {
     const art = props.art.artWork;
@@ -54,6 +55,19 @@ const FilteredArt = (props) => {
             </section>
             </>
         )
+=======
+const FilteredArt = ({ art }) => {
+    const filteredArt = art.artPieces;
+    
+    return (
+        <>
+        <Head><title>Shane George Art</title></Head>
+        <section className={style.port}>
+            <Thumbnails art={filteredArt} />
+        </section>
+        </>
+    )
+>>>>>>> 950db36f62b97d3a1f5823cd22c83453cd548ad4
 }
 
 export default FilteredArt;

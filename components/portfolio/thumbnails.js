@@ -2,20 +2,32 @@ import Link from 'next/link';
 import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
 
-const Thumbnails = (props) => { 
+const Thumbnails = ({ art }) => { 
     const router = useRouter();
-    let { pathname } = router;
-    const art = props.art;
+    const pathname  = router.query.page;
+    // let slug = router.query.page[router.query.page.length -1];
     const artList = [];
     let thumbnails;
 
 
-    const generateThumbnails = () => {
-        for(let index in art) artList.push(art[index]);
+    const filterArtWork = (art) => {
+        for(let i in art) {
+            if(pathname) {
+                let slug = pathname[pathname.length -1];
+                let hasTags = art[i].fields.category.includes(slug);
+                if(hasTags) artList.push(art[i]);
+            }
+            else artList.push(art[i]);
+        }
+    }
+
+    const generateThumbnails = (art) => {
+        
+        filterArtWork(art);
+
         const artThumbs = artList.map((thumb, i) => { 
             let { artWork } = thumb.fields;
             let { id } = thumb.sys;
-
             let thumbs = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
@@ -34,9 +46,9 @@ const Thumbnails = (props) => {
        });
        thumbnails =  artThumbs;
     }
-    generateThumbnails();
+    generateThumbnails(art);
 
-    if(pathname === '/') return <>{thumbnails}</>
+    return <>{thumbnails}</>
 }
 
 export default Thumbnails;
