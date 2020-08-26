@@ -1,23 +1,32 @@
 import { useRouter } from 'next/router';
-import FilteredArt from '../portfolio/filteredArt';
+import FilterArt from '../portfolio/filterArt';
 import ShowArt from '../portfolio/showArt';
 import Redirect from '../redirect';
 
-const Portfolio = ( { art }) => {
-    let { artPieces, tagsList } = art;
+const Portfolio = ( { art, tags }) => {
     const router = useRouter();
-    const paramId = router.query.page;
-    const slug = paramId[paramId.length-1];
-    const artId = artPieces.map(entry => {
+    const params = router.query.page;
+    const { pathname } = router;
+    let slug;
+
+    const artId = art.map(entry => {
             let { id } = entry.sys;
             if(slug === id) id;
         });
 
+    const isHomePage = (path) => {
+        if(path !== '/') slug = params[params.length-1];
+        else return;
+    }
+    
+    isHomePage(pathname);
+
     return (
         <>
-            { (slug === 'art') ? <Redirect /> :
-            (tagsList.includes(slug)) ? <FilteredArt art={art} /> :
-            (slug && artId) ? <ShowArt art={art.artPieces} /> :
+            {(pathname === '/') ? <FilterArt art={art} /> : 
+            (slug === 'art') ? <Redirect /> :
+            (tags.includes(slug)) ? <FilterArt art={art} /> :
+            (slug && artId) ? <ShowArt art={art} /> :
             <h1>Go Back home or 404</h1> }
         </>
         )

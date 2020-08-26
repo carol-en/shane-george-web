@@ -1,9 +1,8 @@
 import Portfolio from '../components/portfolio';
 
-const Page = (props) => {
-const art = props;
+const Page = ({ art, tagsList }) => {
 
-return <Portfolio art={art} />
+return <Portfolio art={art} tags={tagsList} />
 }
 
 export default Page;

@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Thumbnails from './thumbnails';
 import style from './portfolio.module.scss';
 
-const allArt = ({ art }) => {
-        
+const FilterArt = ({ art }) => {
+
     return (
         <>
         <Head><title>Shane George Art</title></Head>
@@ -15,4 +15,4 @@ const allArt = ({ art }) => {
     )
 }
 
-export default allArt;
+export default FilterArt;
