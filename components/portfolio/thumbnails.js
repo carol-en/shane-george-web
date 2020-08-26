@@ -5,27 +5,32 @@ import { useRouter } from 'next/router';
 const Thumbnails = ({ art }) => { 
     const router = useRouter();
     const pathname  = router.query.page;
-    // let slug = router.query.page[router.query.page.length -1];
-    const artList = [];
+    const allArtArr = [];
+    const filterArtArr = [];
     let thumbnails;
 
-
-    const filterArtWork = (art) => {
+// FIx filteirng system with the arrays and indexes
+    const filterArtWork = (art, mapArt) => {
         for(let i in art) {
             if(pathname) {
                 let slug = pathname[pathname.length -1];
                 let hasTags = art[i].fields.category.includes(slug);
-                if(hasTags) artList.push(art[i]);
+                if(hasTags) filterArtArr.push(art[i]);
+                mapArt = filterArtArr;
             }
-            else artList.push(art[i]);
+            else {
+                allArtArr.push(art[i]);
+                mapArt = allArtArr;
+            }
+            return mapArt;
         }
     }
 
     const generateThumbnails = (art) => {
-        
-        filterArtWork(art);
+        let mapArt;
+        filterArtWork(art, mapArt);
 
-        const artThumbs = artList.map((thumb, i) => { 
+        const artThumbs = mapArt.map((thumb, i) => { 
             let { artWork } = thumb.fields;
             let { id } = thumb.sys;
             let thumbs = artWork.map((entry, j) => {
