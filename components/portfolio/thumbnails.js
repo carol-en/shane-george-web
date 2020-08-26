@@ -5,55 +5,41 @@ import { useRouter } from 'next/router';
 const Thumbnails = ({ art }) => { 
     const router = useRouter();
     const pathname  = router.query.page;
-    const allArtArr = [];
-    const filterArtArr = [];
-    let thumbnails;
+    const artList = [];
 
-// FIx filteirng system with the arrays and indexes
-    const filterArtWork = (art, mapArt) => {
-        for(let i in art) {
-            if(pathname) {
-                let slug = pathname[pathname.length -1];
-                let hasTags = art[i].fields.category.includes(slug);
-                if(hasTags) filterArtArr.push(art[i]);
-                mapArt = filterArtArr;
-            }
-            else {
-                allArtArr.push(art[i]);
-                mapArt = allArtArr;
-            }
-            return mapArt;
-        }
+    const filterThumbnails = (category, thumbnail, i) => {
+        let card = <div className={style.card} key={i}>{thumbnail}</div>;
+        if(pathname) {
+            let slug = pathname[pathname.length-1];
+            let hasTag = category.includes(slug);
+            if(hasTag) return card;
+        } 
+        else return card;
     }
-
-    const generateThumbnails = (art) => {
-        let mapArt;
-        filterArtWork(art, mapArt);
-
-        const artThumbs = mapArt.map((thumb, i) => { 
-            let { artWork } = thumb.fields;
+    
+    const generateThumbnails = (art, list) => {
+        art.map((img, i) => list.push(img));
+        const thumbnails = list.map((thumb, i) => { 
+            let { artWork, category } = thumb.fields;
             let { id } = thumb.sys;
-            let thumbs = artWork.map((entry, j) => {
+
+            let thumbArt = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
                 const ratio = "?fit=thumb&f=face&h=200&w=200";
                 const thumbnail = `${url}${ratio}`; 
-
                 if(j < 1) { 
-                    return (   
-                        <Link href={`/art/${i}/${id}`} key={id}>
-                            <a><img src={thumbnail} alt={title} /></a>
-                        </Link>
-                    )
+                    return ( 
+                    <Link href={`/art/${i}/${id}`} key={id}> 
+                        <a><img src={thumbnail} alt={title} /></a>
+                    </Link> )
                 }
             });
-            return  <div className={style.card} key={i}>{thumbs}</div>
+            return filterThumbnails(category, thumbArt, i);
        });
-       thumbnails =  artThumbs;
+       return <>{thumbnails}</>
     }
-    generateThumbnails(art);
-
-    return <>{thumbnails}</>
+    return generateThumbnails(art, artList);
 }
 
 export default Thumbnails;
