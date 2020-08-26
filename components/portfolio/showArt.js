@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 
 const ShowPage = ({ art }) => {
@@ -23,18 +25,20 @@ const ShowPage = ({ art }) => {
             }
         }
     }
+
     checkEntryData(slugNum, art);
-    return <> {entry ? <ShowContent prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
+
+    return <> {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
 }
 
-const ShowContent = ( {prev, next, entry }) => {
+const Content = ( {prev, next, entry }) => {
     let { title, artWork } = entry.fields;
     return (
         <>
             <Head><title>{title}</title></Head>
             <section>
                     <Artwork artWork={artWork} />
-                    <ArtContent entry={entry} />
+                    <DescAndInfo entry={entry} />
                 
                     {/* Prev & Next art links */}
                     {prev && <PrevLink prev={prev} /> } 
@@ -60,16 +64,38 @@ const Artwork = ({ artWork }) => {
     return <figure>{art}</figure>
 }
 
-const ArtContent = ({ entry }) => {
+const DescAndInfo = ({ entry }) => {
     let { title, category, description } = entry.fields;
-    // Find library for markdown
+    let document;
+    let allText = description.content.map(txt => document = txt);
+    const Bold = ({ children }) => <strong>{children}</strong>;
+    const Italic = ({ children }) => <em>{children}</em>;
+    const Underline = ({ children }) => <u>{children}</u>;
+    const Code = ({ children }) => <pre>{children}</pre>;
+    const Text = ({ children }) => <p>{children}</p>;
+
+    console.log(document)
+
+    const options = {
+        renderMark: {
+          [MARKS.BOLD]: text => <Bold>{text}</Bold>,
+          [MARKS.ITALIC]: text => <Italic>{text}</Italic>,
+          [MARKS.UNDERLINE]: text => <Underline>{text}</Underline>,
+          [MARKS.CODE]: text => <Code>{text}</Code>
+        },
+        renderNode: {
+          [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+        },
+        renderText: text => text.replace('!', '?'),
+      };
+
+      const entryData = documentToReactComponents(document, options);
+
     return (
         <aside>
             <h1>Title: {title}</h1>
             <h2>Category: {category.map(tag => tag)}</h2>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+            <section className="description">{entryData}</section>
         </aside>
     )
 }
