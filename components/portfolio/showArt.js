@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-
+// =======================
+// CHECK IS ENTRY EXISTS BEFORE RENDERING
+// =======================
 const ShowPage = ({ art }) => {
     const router = useRouter(); 
     const params = router.query.page; // Get all params
@@ -31,13 +33,16 @@ const ShowPage = ({ art }) => {
     return <> {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
 }
 
+// =======================
+// RENDER SHOW CONTENT
+// =======================
 const Content = ( {prev, next, entry }) => {
     let { title, artWork } = entry.fields;
     return (
         <>
             <Head><title>{title}</title></Head>
             <section>
-                    <Artwork artWork={artWork} />
+                    <Image image={artWork} />
                     <DescAndInfo entry={entry} />
                 
                     {/* Prev & Next art links */}
@@ -47,58 +52,76 @@ const Content = ( {prev, next, entry }) => {
         </>
     )
 }
-
-const Artwork = ({ artWork }) => {
-    let art = artWork.map(art => {
+// =======================
+// RENDER ARTWORK IMAGE
+// =======================
+const Image = ({ image }) => {
+    let imge = image.map(art => {
         let { fields, sys } = art;
         let { id } = sys;
         let { title, file } = fields;
         let { url } = fields.file;
 
-        return(
+        return (
             <a href={url} target="_blank" rel="noopener noreferrer" key={id}>
                 <img src={url} alt={title} />
             </a>
         )
     })
-    return <figure>{art}</figure>
+    return <figure>{imge}</figure>
 }
 
+// =======================
+// RENDER RICH TEXT CONTENT
+// =======================
 const DescAndInfo = ({ entry }) => {
     let { title, category, description } = entry.fields;
-    let document;
-    let allText = description.content.map(txt => document = txt);
-    const Bold = ({ children }) => <strong>{children}</strong>;
-    const Italic = ({ children }) => <em>{children}</em>;
-    const Underline = ({ children }) => <u>{children}</u>;
-    const Code = ({ children }) => <pre>{children}</pre>;
-    const Text = ({ children }) => <p>{children}</p>;
+      const tags = category.map(tag => tag);
 
-    console.log(document)
+      // Render rich text embedded images
+      const EmbeddedImage = ({ title, url }) =>
+      (
+        <figure>
+            <a href={url} target="_blank" rel="noopener noreferrer"><img src={`${url}?w=200`} alt={title} /></a>
+        </figure>
+      );
 
-    const options = {
-        renderMark: {
-          [MARKS.BOLD]: text => <Bold>{text}</Bold>,
-          [MARKS.ITALIC]: text => <Italic>{text}</Italic>,
-          [MARKS.UNDERLINE]: text => <Underline>{text}</Underline>,
-          [MARKS.CODE]: text => <Code>{text}</Code>
-        },
+      // Render rich text embedded entries
+      const EmbeddedEntry = ({ title, slug }) => (
+        <blockquote>
+          <Link href={`/${slug}`}><h3><a>title</a></h3></Link>
+        </blockquote>
+      );
+
+      // Set custom options to render embedded blocks: images & entries
+      const options = {
         renderNode: {
-          [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
-        },
-        renderText: text => text.replace('!', '?'),
-      };
+          [BLOCKS.EMBEDDED_ASSET]: (node) => {
+            const { title, file } = node.data.target.fields;
+            const { url } = file;
 
-      const entryData = documentToReactComponents(document, options);
+            return <EmbeddedImage title={title} url={url}/>
+          },
+
+          [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+            const { title, slug } = node.data.target.fields;
+            return <EmbeddedEntry title={title} slug={slug} />
+          }
+        }
+      };
+      const content = documentToReactComponents(description, options);
 
     return (
         <aside>
             <h1>Title: {title}</h1>
-            <h2>Category: {category.map(tag => tag)}</h2>
-            <section className="description">{entryData}</section>
+            <h2>Category: {tags}</h2>
+            <section className="description">{content}</section>
         </aside>
     )
 }
+// =======================
+//  PAGINATION 
+// =======================
 
     // Link to previous art component
     const PrevLink = ({ prev }) => {
