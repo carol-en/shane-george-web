@@ -1,39 +1,38 @@
 import { useRouter } from 'next/router';
 
+const Page = ({ pages }) => {
+    const router = useRouter();
+    const { param } = router.query;
+
+
+
+    const generatePage = (entries, param) => {
+        let page = entries.map((entry, i) => {
+            let { slug } = entry.fields;
+            console.log(param)
+            if(slug === param) {
+                return (
+                    <section>
+                        <Entry /> 
+                    </section>
+                )
+            }
+            else return <h1>404 not found</h1>
+            
+        });
+        return <>{page}</>;
+    }
+   return  generatePage(pages, param)
+}
+
+
 const Entry = (props) => {
-    const { userId, id, title, body } = props.entry;
-
-
     return (
         <>
-            <h1>{id}: {title}</h1>
-            <p>{body}</p>
+            <h1>Entry Js</h1>
         </>
     );
 }
 
-const Page = (props) => {
-    const router = useRouter();
-    const { param } = router.query;
-    const posts = props.entry;
-    const entryList = [];
-    let entryCheck;
-
-    const generateArticles = () => {
-        posts.map((article, i) =>  { if(i < 10) entryList.push(article); });
-        entryCheck = entryList[param];
-    }
-
-    generateArticles();
-
-    return (
-        <>
-            <section>
-                {entryCheck ? <Entry entry={entryCheck} /> :
-                <h1>404 Not Found</h1> }
-            </section>
-        </>
-    )
-}
 
 export default Page;
