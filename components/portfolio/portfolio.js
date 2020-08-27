@@ -12,32 +12,38 @@ const Portfolio = ( { art, tags }) => {
     const { pathname } = router;
     let slug;
 
-    // --------------------------
-    // logic issues here, FIX IT.
-    // Change to function?
-    // --------------------------
-    // Map through art data, if an art entry exists then return it's id
-    const artId = art.map(entry => {
-            let { id } = entry.sys;
-            if(slug === id) return id;
-        });
-    // --------------------------
-
+    
     // Check if path is home or not
     const isHomePage = (path) => {
         if(path !== '/') slug = params[params.length-1];
-        else return;
+        else slug = null;
     }
-    
+
+    // Map through art data, if an art entry exists then return it's id 
+    const getArtworkId = (art) => {
+        let artId;
+        art.map(item => {
+            let { id } = item.sys;
+            if(slug === id) {
+                artId = id;
+            }
+        });
+        return artId;
+    }
+
     isHomePage(pathname);
-    console.log(slug, artId)
+    
     // Go to one of these depending on path
+    const tagsSlug   =  tags.includes(slug),
+          showSlug   =  getArtworkId(art),
+          homeSlug   =  pathname === '/',
+          artSlug    =  slug === 'art';
     return (
         <>
-        {   (pathname === '/')    ?   <FilterArt   art={art} />  :  // if you're on home page
-            (slug === 'art')      ?   <Redirect />               :  // if url is only at '/art', redirect home
-            (tags.includes(slug)) ?   <FilterArt   art={art} />  : // if you're on a tagged art pg
-            (slug && artId)       ?   <ShowArt     art={art} />  : // if you're viewing a piece of art
+        {   (homeSlug)  ?   <FilterArt   art={art} />  :  // if you're on home page
+            (artSlug)   ?   <Redirect />               :  // if url is only at '/art', redirect home
+            (tagsSlug)  ?   <FilterArt   art={art} />  : // if you're on a tagged art pg
+            (showSlug)  ?   <ShowArt     art={art} />  : // if you're viewing a piece of art
             <h1>Go Back home or 404</h1> // if no page exists 
         } 
         </>
