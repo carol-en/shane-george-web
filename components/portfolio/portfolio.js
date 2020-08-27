@@ -38,6 +38,7 @@ const Portfolio = ( { art, tags }) => {
           showSlug   =  getArtworkId(art),
           homeSlug   =  pathname === '/',
           artSlug    =  slug === 'art';
+
     return (
         <>
         {   (homeSlug)  ?   <FilterArt   art={art} />  :  // if you're on home page

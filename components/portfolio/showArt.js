@@ -76,7 +76,7 @@ const Image = ({ image }) => {
 // =======================
 const DescAndInfo = ({ entry }) => {
     let { title, category, description } = entry.fields;
-      const tags = category.map(tag => tag);
+    const tags = category.map(tag => tag);
 
       // Render rich text embedded images
       const EmbeddedImage = ({ title, url }) =>
@@ -86,14 +86,8 @@ const DescAndInfo = ({ entry }) => {
         </figure>
       );
 
-      // Render rich text embedded entries
-      const EmbeddedEntry = ({ title, slug }) => (
-        <blockquote>
-          <Link href={`/${slug}`}><h3><a>title</a></h3></Link>
-        </blockquote>
-      );
-
       // Set custom options to render embedded blocks: images & entries
+
       const options = {
         renderNode: {
           [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -101,11 +95,6 @@ const DescAndInfo = ({ entry }) => {
             const { url } = file;
 
             return <EmbeddedImage title={title} url={url}/>
-          },
-
-          [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-            const { title, slug } = node.data.target.fields;
-            return <EmbeddedEntry title={title} slug={slug} />
           }
         }
       };
