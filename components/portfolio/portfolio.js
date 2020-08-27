@@ -12,11 +12,16 @@ const Portfolio = ( { art, tags }) => {
     const { pathname } = router;
     let slug;
 
+    // --------------------------
+    // logic issues here, FIX IT.
+    // Change to function?
+    // --------------------------
     // Map through art data, if an art entry exists then return it's id
     const artId = art.map(entry => {
             let { id } = entry.sys;
-            if(slug === id) id;
+            if(slug === id) return id;
         });
+    // --------------------------
 
     // Check if path is home or not
     const isHomePage = (path) => {
@@ -25,7 +30,7 @@ const Portfolio = ( { art, tags }) => {
     }
     
     isHomePage(pathname);
-
+    console.log(slug, artId)
     // Go to one of these depending on path
     return (
         <>
