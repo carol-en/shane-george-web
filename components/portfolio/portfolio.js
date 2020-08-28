@@ -1,24 +1,52 @@
 import { useRouter } from 'next/router';
-import FilteredArt from '../portfolio/filteredArt';
+import FilterArt from '../portfolio/filterArt';
 import ShowArt from '../portfolio/showArt';
 import Redirect from '../redirect';
 
-const Portfolio = ( { art }) => {
-    let { artPieces, tagsList } = art;
+// =======================
+// HANDLES ROUTING FOR PORTFOLIO GALLERIES
+// =======================
+const Portfolio = ( { art, tags }) => {
     const router = useRouter();
-    const paramId = router.query.page;
-    const slug = paramId[paramId.length-1];
-    const artId = artPieces.map(entry => {
-            let { id } = entry.sys;
-            if(slug === id) id;
+    const params = router.query.page;
+    const { pathname } = router;
+    let slug;
+
+    
+    // Check if path is home or not
+    const isHomePage = (path) => {
+        if(path !== '/') slug = params[params.length-1];
+        else slug = null;
+    }
+
+    // Map through art data, if an art entry exists then return it's id 
+    const getArtworkId = (art) => {
+        let artId;
+        art.map(item => {
+            let { id } = item.sys;
+            if(slug === id) {
+                artId = id;
+            }
         });
+        return artId;
+    }
+
+    isHomePage(pathname);
+    
+    // Go to one of these depending on path
+    const tagsSlug   =  tags.includes(slug),
+          showSlug   =  getArtworkId(art),
+          homeSlug   =  pathname === '/',
+          artSlug    =  slug === 'art';
 
     return (
         <>
-            { (slug === 'art') ? <Redirect /> :
-            (tagsList.includes(slug)) ? <FilteredArt art={art} /> :
-            (slug && artId) ? <ShowArt art={art.artPieces} /> :
-            <h1>Go Back home or 404</h1> }
+        {   (homeSlug)  ?   <FilterArt   art={art} />  :  // if you're on home page
+            (artSlug)   ?   <Redirect />               :  // if url is only at '/art', redirect home
+            (tagsSlug)  ?   <FilterArt   art={art} />  : // if you're on a tagged art pg
+            (showSlug)  ?   <ShowArt     art={art} />  : // if you're viewing a piece of art
+            <h1>Go Back home or 404</h1> // if no page exists 
+        } 
         </>
         )
     }

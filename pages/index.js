@@ -1,8 +1,9 @@
-import AllArt from '../components/portfolio/allArt';
+import Portfolio from '../components/portfolio';
+import { useRouter } from 'next/router';
 
-const IndexPage = ({ art }) => {
+const IndexPage = ({ art, tagsList  }) => {
 
-    return <> <AllArt art={art} art={art} /> </>
+    return <Portfolio art={art} tags={tagsList} />
 }
 
 export default IndexPage;

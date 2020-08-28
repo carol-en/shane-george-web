@@ -1,8 +1,12 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-
+// =======================
+// CHECK IS ENTRY EXISTS BEFORE RENDERING
+// =======================
 const ShowPage = ({ art }) => {
     const router = useRouter(); 
     const params = router.query.page; // Get all params
@@ -23,18 +27,23 @@ const ShowPage = ({ art }) => {
             }
         }
     }
+
     checkEntryData(slugNum, art);
-    return <> {entry ? <ShowContent prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
+
+    return <> {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
 }
 
-const ShowContent = ( {prev, next, entry }) => {
+// =======================
+// RENDER SHOW CONTENT
+// =======================
+const Content = ( {prev, next, entry }) => {
     let { title, artWork } = entry.fields;
     return (
         <>
             <Head><title>{title}</title></Head>
             <section>
-                    <Artwork artWork={artWork} />
-                    <ArtContent entry={entry} />
+                    <Image image={artWork} />
+                    <DescAndInfo entry={entry} />
                 
                     {/* Prev & Next art links */}
                     {prev && <PrevLink prev={prev} /> } 
@@ -43,36 +52,64 @@ const ShowContent = ( {prev, next, entry }) => {
         </>
     )
 }
-
-const Artwork = ({ artWork }) => {
-    let art = artWork.map(art => {
+// =======================
+// RENDER ARTWORK IMAGE
+// =======================
+const Image = ({ image }) => {
+    let imge = image.map(art => {
         let { fields, sys } = art;
         let { id } = sys;
         let { title, file } = fields;
         let { url } = fields.file;
 
-        return(
+        return (
             <a href={url} target="_blank" rel="noopener noreferrer" key={id}>
                 <img src={url} alt={title} />
             </a>
         )
     })
-    return <figure>{art}</figure>
+    return <figure>{imge}</figure>
 }
 
-const ArtContent = ({ entry }) => {
+// =======================
+// RENDER RICH TEXT CONTENT
+// =======================
+const DescAndInfo = ({ entry }) => {
     let { title, category, description } = entry.fields;
-    // Find library for markdown
+    const tags = category.map(tag => tag);
+
+      // Render rich text embedded images
+      const EmbeddedImage = ({ title, url }) =>
+      (
+        <figure>
+            <a href={url} target="_blank" rel="noopener noreferrer"><img src={`${url}?w=200`} alt={title} /></a>
+        </figure>
+      );
+
+      // Set custom options to render embedded blocks: images & entries
+      const options = {
+        renderNode: {
+          [BLOCKS.EMBEDDED_ASSET]: (node) => {
+            const { title, file } = node.data.target.fields;
+            const { url } = file;
+
+            return <EmbeddedImage title={title} url={url}/>
+          }
+        }
+      };
+      const content = documentToReactComponents(description, options);
+
     return (
         <aside>
             <h1>Title: {title}</h1>
-            <h2>Category: {category.map(tag => tag)}</h2>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+            <h2>Category: {tags}</h2>
+            <section className="description">{content}</section>
         </aside>
     )
 }
+// =======================
+//  PAGINATION 
+// =======================
 
     // Link to previous art component
     const PrevLink = ({ prev }) => {

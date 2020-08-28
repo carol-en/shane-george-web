@@ -2,53 +2,57 @@ import Link from 'next/link';
 import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
 
+
+// =======================
+// PORTFOLIO'S THUMBNAILS ARE GENERATED & FILTERED OUT HERE
+// =======================
 const Thumbnails = ({ art }) => { 
     const router = useRouter();
     const pathname  = router.query.page;
-    // let slug = router.query.page[router.query.page.length -1];
     const artList = [];
-    let thumbnails;
 
-
-    const filterArtWork = (art) => {
-        for(let i in art) {
-            if(pathname) {
-                let slug = pathname[pathname.length -1];
-                let hasTags = art[i].fields.category.includes(slug);
-                if(hasTags) artList.push(art[i]);
-            }
-            else artList.push(art[i]);
-        }
+    // =======================
+    // DECIDE TO LIST ALL THUMBNAILS OR FILTER DEPENDING ON PAGE
+    // =======================
+    const filterThumbnails = (category, thumbnail, i) => {
+        let card = <div className={style.card} key={i}>{thumbnail}</div>;
+        if(pathname) {
+            let slug = pathname[pathname.length-1];
+            let hasTag = category.includes(slug);
+            if(hasTag) return card;
+        } 
+        else return card;
     }
-
-    const generateThumbnails = (art) => {
-        
-        filterArtWork(art);
-
-        const artThumbs = artList.map((thumb, i) => { 
-            let { artWork } = thumb.fields;
+    
+    // =======================
+    // CREATE THUMBNAILS 
+    // =======================
+    const generateThumbnails = (art, list) => {
+        // Loop through all art, push into array
+        art.map((img, i) => list.push(img));
+        const thumbnails = list.map((thumb, i) => { 
+            let { artWork, category } = thumb.fields;
             let { id } = thumb.sys;
-            let thumbs = artWork.map((entry, j) => {
+
+            // Loop through arrayed artwork & create thumbnail images with Contentful API
+            let thumbArt = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
                 const ratio = "?fit=thumb&f=face&h=200&w=200";
                 const thumbnail = `${url}${ratio}`; 
-
                 if(j < 1) { 
-                    return (   
-                        <Link href={`/art/${i}/${id}`} key={id}>
-                            <a><img src={thumbnail} alt={title} /></a>
-                        </Link>
-                    )
+                    return ( 
+                    <Link href={`/art/${i}/${id}`} key={id}> 
+                        <a><img src={thumbnail} alt={title} /></a>
+                    </Link> )
                 }
             });
-            return  <div className={style.card} key={i}>{thumbs}</div>
+            return filterThumbnails(category, thumbArt, i);
        });
-       thumbnails =  artThumbs;
+        // Thumbnails generated here
+       return <>{thumbnails}</>
     }
-    generateThumbnails(art);
-
-    return <>{thumbnails}</>
+    return generateThumbnails(art, artList);
 }
 
 export default Thumbnails;
