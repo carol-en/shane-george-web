@@ -87,7 +87,6 @@ const DescAndInfo = ({ entry }) => {
       );
 
       // Set custom options to render embedded blocks: images & entries
-
       const options = {
         renderNode: {
           [BLOCKS.EMBEDDED_ASSET]: (node) => {
