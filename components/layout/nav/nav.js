@@ -1,8 +1,8 @@
 import style from './nav.module.scss';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const Nav = ({ tags }) => {
+
     return (
         <nav className={style.navi}>
             <Tags tags={tags} />
