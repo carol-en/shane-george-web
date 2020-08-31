@@ -3,6 +3,9 @@ import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
 
 
+// https://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/
+// FOR GRID GALLERY
+
 // =======================
 // PORTFOLIO'S THUMBNAILS ARE GENERATED & FILTERED OUT HERE
 // =======================
@@ -14,14 +17,14 @@ const Thumbnails = ({ art }) => {
     // =======================
     // DECIDE TO LIST ALL THUMBNAILS OR FILTER DEPENDING ON PAGE
     // =======================
-    const filterThumbnails = (category, thumbnail, i) => {
-        let card = <div className={style.card} key={i}>{thumbnail}</div>;
+    const filterThumbnails = (category, img, i) => {
+        let thumbnail = <div className={style.thumbnail} key={i}>{img}</div>;
         if(pathname) {
             let slug = pathname[pathname.length-1];
             let hasTag = category.includes(slug);
-            if(hasTag) return card;
+            if(hasTag) return thumbnail;
         } 
-        else return card;
+        else return thumbnail;
     }
     
     // =======================
@@ -38,13 +41,15 @@ const Thumbnails = ({ art }) => {
             let thumbArt = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
-                const ratio = "?fit=thumb&f=face&h=400&w=400";
+                const ratio = "?fit=thumb&f=face&w=600&h=600";
                 const thumbnail = `${url}${ratio}`; 
                 if(j < 1) { 
                     return ( 
-                    <Link href={`/art/${i}/${id}`} key={id}> 
-                        <a><img src={thumbnail} alt={title} className={style.thumbnail}/></a>
-                    </Link> )
+                    <div>
+                        <Link href={`/art/${i}/${id}`} key={id}> 
+                            <a><img src={thumbnail} alt={title}/></a>
+                        </Link> 
+                    </div>)
                 }
             });
             return filterThumbnails(category, thumbArt, i);

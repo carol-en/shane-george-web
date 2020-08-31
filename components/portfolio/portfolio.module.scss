@@ -1,11 +1,16 @@
 .port {
     display: flex;
-    flex-flow: nowrap row;
-    justify-content: center;
-    align-content: center;
+    flex-flow: wrap row;
+    position: relative;
+    justify-items: center;
 }
 
+.thumbnail {
+    flex: 25%;
+    max-width: 25%;
+}
 
-// img.thumbnail {
-//     max-width: 25%;
-// }
+.thumbnail img {
+    vertical-align: middle;
+    width: 100%;
+  }
