@@ -7,3 +7,20 @@
     position: relative;
     z-index: 1;
 }
+
+a.logo {
+    color: red;
+    text-transform: uppercase;
+}
+
+a.links{
+    color: #f7efcf;
+}
+
+
+
+nav.nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}

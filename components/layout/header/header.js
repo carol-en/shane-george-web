@@ -1,48 +1,50 @@
-import Hero from './hero';
-import Nav from '../nav';
 import style from './header.module.scss';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Nav from './nav';
 
-//=================
-// HIDE/SHOW TAGS NAVIGATION DEPENDING ON PAGE
-//=================
-const ToggleNav = ({ art, tags }) => {
-    const router = useRouter();
-    const { query, pathname, route } = router;
-    let slug;
-  
-    // Determine what page you're on
-    const checkIfInPages = (pathname, query) => {
-        let { page, param } = query;
-        let nav = <Nav tags={tags}/>;
-            if(pathname !== '/' && page) { // If you're not on the home page, but on the [...page] component. Aka show page.
-                slug = page[page.length-1];
-                let artId = page[page.length-2];
-                let checkArtwork = art[artId];
-    
-                if(checkArtwork) { // Check if url has necessary data to pull artwork api & that it exists/matches. If it does, do not show nav.
-                    let { id } = checkArtwork.sys;
-                    if(slug === id) nav = null;
-                } else return nav  // if you cant pull art data, show nav
-            } 
-            else if(param) nav = null; // If you're on the  [...param] component don't show nav. Aka about/contact pages
-            else return nav;
-        }
-    
-    const toggleNav = checkIfInPages(pathname, query);
-
-    return <>{toggleNav}</>;
-}
-
+// =======================
+// MAIN CONTENT FOR HEADER
+// =======================
 const Header = ({ data, tags, pages }) => {
+    let { art } = data;
     return (
-        <>
         <header className={style.banner}>
-            <Hero pages={pages}/>
+            <Pages pages={pages} />
+            <Shane href="/">Shane George</Shane>
+            <Nav tags={tags} art={art} />
         </header>
-        <ToggleNav art={data.art} tags={tags} />
-        </>
     )
 }
+
+// =======================
+// CREATES PAGE LINKS
+// =======================
+const Pages = ({ pages }) => {
+    // Pulls Contentful API data for pages & generates links
+    const generateLinks = (pages) => {
+        let links = pages.map((link, i) => {
+         let { slug, title } = link.fields;  
+         return (
+             <Link key={i} href={`/p/${slug}`}>
+                 <a className={style.links}>{title}</a>
+             </Link>
+             );
+        });
+         return <nav className={style.nav}>{links}</nav>
+     }
+    return generateLinks(pages);
+}
+
+const Shane = ({ children, href }) => {
+    return (
+        <h1>
+            <Link href={href}>
+                <a className={style.logo}>{children}</a>
+            </Link>
+        </h1>
+    )
+}
+
 
 export default Header;
