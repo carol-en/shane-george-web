@@ -9,11 +9,13 @@ import Nav from './nav';
 const Header = ({ data, tags, pages }) => {
     let { art } = data;
     return (
+        <>
         <header className={style.banner}>
             <Pages pages={pages} />
             <Shane href="/">Shane George</Shane>
-            <Nav tags={tags} art={art} />
         </header>
+        <Nav tags={tags} art={art} />
+        </>
     )
 }
 
@@ -38,11 +40,15 @@ const Pages = ({ pages }) => {
 
 const Shane = ({ children, href }) => {
     return (
-        <h1>
-            <Link href={href}>
-                <a className={style.logo}>{children}</a>
-            </Link>
-        </h1>
+        <aside className={style.hero}>
+            <span className={style.subheader}>illustrator</span>
+            <h1>
+                <Link href={href}>
+                    <a className={style.logo}>{children}</a>
+                </Link>
+            </h1>
+            <span className={style.subheader}>comic artist</span>
+        </aside>
     )
 }
 

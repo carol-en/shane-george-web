@@ -1,20 +1,46 @@
+@import '../../../variables.scss';
 
 .banner {
-    border: 1px solid red;
-    background: #3a3a3a;
-    color: #ccc;
+    background: $bg-color;
     text-align: center;
     position: relative;
+    padding: 1rem;
     z-index: 1;
 }
 
-a.logo {
-    color: red;
-    text-transform: uppercase;
+aside.hero {
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: space-between;
+    text-align: center;
 }
 
-a.links{
-    color: #f7efcf;
+a.logo {
+    color: $red-color;
+    text-transform: uppercase;
+    font-family: $lato-font;
+    font-size: 2.5em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover.logo {
+    color: $accent-color;
+}
+
+span.subheader {
+    color: $accent-color-2;
+    font-family: $lato-font;
+    justify-items: center;
+    text-align: center;
+}
+
+a.links {
+    color: $accent-color-2;
+}
+
+a:hover.links {
+    color: $accent-color;
 }
 
 
