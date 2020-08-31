@@ -42,9 +42,9 @@ const Shane = ({ children, href }) => {
     return (
         <aside className={style.hero}>
             <span className={style.subheader}>illustrator</span>
-            <h1>
+            <h1 className={style.logo}>
                 <Link href={href}>
-                    <a className={style.logo}>{children}</a>
+                    <a>{children}</a>
                 </Link>
             </h1>
             <span className={style.subheader}>comic artist</span>

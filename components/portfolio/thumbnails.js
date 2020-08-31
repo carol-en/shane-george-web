@@ -38,12 +38,12 @@ const Thumbnails = ({ art }) => {
             let thumbArt = artWork.map((entry, j) => {
                 let { title } = entry.fields;
                 let { url } = entry.fields.file;
-                const ratio = "?fit=thumb&f=face&h=200&w=200";
+                const ratio = "?fit=thumb&f=face&h=400&w=400";
                 const thumbnail = `${url}${ratio}`; 
                 if(j < 1) { 
                     return ( 
                     <Link href={`/art/${i}/${id}`} key={id}> 
-                        <a><img src={thumbnail} alt={title} /></a>
+                        <a><img src={thumbnail} alt={title} className={style.thumbnail}/></a>
                     </Link> )
                 }
             });

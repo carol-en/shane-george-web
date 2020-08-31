@@ -6,24 +6,24 @@
     width: 100%;
     display: flex;
     flex-flow: nowrap row;
-    justify-content: center;
+    justify-content: space-between;
 }
-
-.navi h1 {
-    color: #1f1f1f;
-}
-
 
 .btn {
     padding: .75rem;
     background: $bg-color;
     color: $accent-color;
     display: inline-block;
+    font-size: 1.25em;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .btn:hover {
     cursor: pointer;
     color: $accent-color-2;
+    text-decoration: underline;
 }
 
 .active {

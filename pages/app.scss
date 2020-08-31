@@ -9,11 +9,13 @@ body, html {
   height: 100%;
   background: $bg-color;
   color: $accent-color-2;
-  font-family: 1rem $mukta-font;
+  font-family: $mukta-font;
+  font-size: 1rem;
 }
 
   .container {
     color: $bg-color;
+    max-width: 100%;
 }
 
 a {

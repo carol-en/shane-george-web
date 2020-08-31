@@ -8,31 +8,40 @@
     z-index: 1;
 }
 
-aside.hero {
+.hero {
+    font-weight: bold;
     display: flex;
     flex-flow: nowrap row;
-    justify-content: space-between;
-    text-align: center;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.1em;
 }
 
-a.logo {
+.logo {
+   flex: 1;
+   text-align: center;
+}
+
+.logo a {
     color: $red-color;
     text-transform: uppercase;
     font-family: $lato-font;
     font-size: 2.5em;
     text-decoration: none;
     font-weight: bold;
+    word-spacing: 100vw; 
 }
 
-a:hover.logo {
+.logo a:hover {
     color: $accent-color;
 }
 
-span.subheader {
+.subheader {
     color: $accent-color-2;
     font-family: $lato-font;
-    justify-items: center;
-    text-align: center;
+    font-size: 1.5em;
+    flex: 2;
+    letter-spacing: .05em;
 }
 
 a.links {
@@ -45,8 +54,16 @@ a:hover.links {
 
 
 
-nav.nav {
+.nav {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+}
+
+.nav a {
+    text-decoration: none;
+    font-size: 1.25em;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: $mukta-font;
 }

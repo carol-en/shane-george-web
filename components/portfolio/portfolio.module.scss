@@ -1,14 +1,11 @@
-.folio {
-    border: 1px solid pink;
-    width: 100%;
-}
-
 .port {
     display: flex;
-    flex-flow: wrap row;
-    justify-content: space-between;
+    flex-flow: nowrap row;
+    justify-content: center;
+    align-content: center;
 }
 
-.card {
-    border: 1px solid gold;
-}
+
+// img.thumbnail {
+//     max-width: 25%;
+// }
