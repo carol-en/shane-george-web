@@ -35,6 +35,7 @@ const Thumbnails = ({ art }) => {
         art.map((img, i) => list.push(img));
         const thumbnails = list.map((thumb, i) => { 
             let { artWork, category } = thumb.fields;
+            let entryTitle = thumb.fields.title;
             let { id } = thumb.sys;
 
             // Loop through arrayed artwork & create thumbnail images with Contentful API
@@ -45,9 +46,12 @@ const Thumbnails = ({ art }) => {
                 const thumbnail = `${url}${ratio}`; 
                 if(j < 1) { 
                     return ( 
-                    <div>
+                    <div className={style.project}>
                         <Link href={`/art/${i}/${id}`} key={id}> 
-                            <a><img src={thumbnail} alt={title}/></a>
+                            <a>
+                                <img src={thumbnail} alt={title}/>
+                                <span className={style.proj_name}>{entryTitle}</span>    
+                            </a>
                         </Link> 
                     </div>)
                 }
