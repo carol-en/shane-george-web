@@ -1,11 +1,57 @@
+@import '../../variables.scss';
+
 .port {
     display: flex;
-    flex-flow: nowrap row;
-    justify-content: center;
-    align-content: center;
+    flex-flow: wrap row;
+    position: relative;
+    justify-items: center;
 }
 
+.thumbnail {
+    flex: 20%;
+    max-width: 20%;
+}
 
-// img.thumbnail {
-//     max-width: 25%;
-// }
+  .project {
+      display: block;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      z-index: 1;
+
+      img {
+        vertical-align: middle;
+        width: 100%;
+      }
+  }
+
+  .proj_name {
+      display: none;
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      left: 0;
+      text-align: center;
+      padding: 35% 0;
+      color: $white-color;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 2.5em;
+      word-spacing: 100vw; 
+      opacity: 0;
+  }
+
+  .thumbnail:hover .proj_name, 
+  .thumbnail:active .proj_name , 
+  .thumbnail a.project:focus .proj_name {
+      background: rgba($red-hover-color, 0.8);
+      display: block;
+      opacity: 1;
+      width: 100%;
+      height: 100%;
+  }
+
+  .thumbnail a.project:focus {
+      outline: none;
+  }
