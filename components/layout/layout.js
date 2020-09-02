@@ -10,7 +10,7 @@ const Layout = ({ children, data }) => {
         <div className="container">
             <Header data={data} pages={data.pages} tags={data.tagsList} />
 
-            <main>
+            <main className={style.main}>
                 {children}
             </main>
 
