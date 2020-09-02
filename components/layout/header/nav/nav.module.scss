@@ -20,10 +20,11 @@
     text-decoration: none;
 }
 
-.btn:hover {
+.btn:hover, .btn:active, .btn:focus {
     cursor: pointer;
     color: $accent-color-2;
     text-decoration: underline;
+    outline: none;
 }
 
 .active {

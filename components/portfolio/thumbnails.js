@@ -45,15 +45,13 @@ const Thumbnails = ({ art }) => {
                 const ratio = "?fit=thumb&f=face&w=600&h=600";
                 const thumbnail = `${url}${ratio}`; 
                 if(j < 1) { 
-                    return ( 
-                    <div className={style.project}>
+                    return (
                         <Link href={`/art/${i}/${id}`} key={id}> 
-                            <a>
-                                <img src={thumbnail} alt={title}/>
-                                <span className={style.proj_name}>{entryTitle}</span>    
-                            </a>
-                        </Link> 
-                    </div>)
+                         <a className={style.project}>
+                            <img src={thumbnail} alt={title}/>
+                            <span className={style.proj_name}>{entryTitle}</span>    
+                         </a>
+                        </Link> )
                 }
             });
             return filterThumbnails(category, thumbArt, i);

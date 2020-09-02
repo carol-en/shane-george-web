@@ -32,8 +32,9 @@
     word-spacing: 100vw; 
 }
 
-.logo a:hover {
+.logo a:hover, .logo a:active, .logo a:focus {
     color: $accent-color;
+    outline: none;
 }
 
 .subheader {
@@ -48,8 +49,9 @@ a.links {
     color: $accent-color-2;
 }
 
-a:hover.links {
+a:hover.links, a:active.links, a:focus.links {
     color: $accent-color;
+    outline: 0;
 }
 
 
