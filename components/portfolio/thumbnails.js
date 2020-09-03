@@ -49,7 +49,7 @@ const Thumbnails = ({ art }) => {
                         <Link href={`/art/${i}/${id}`} key={id}> 
                          <a className={style.project}>
                             <img src={thumbnail} alt={title}/>
-                            <span className={style.proj_name}>{entryTitle}</span>    
+                            <h3 className={style.proj_name}>{entryTitle}</h3>    
                          </a>
                         </Link> )
                 }

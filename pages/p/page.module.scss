@@ -16,6 +16,16 @@
         color: $accent-color;
         text-decoration: none;
     }
+
+    a img {
+        border: .75em solid $red-hover-color;
+    }
+
+    a img:hover,
+    a img:active,
+    a img:focus {
+        border: .75em solid $accent-color;
+    }
 }
 
 .title {

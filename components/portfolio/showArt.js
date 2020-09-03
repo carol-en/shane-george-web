@@ -30,7 +30,12 @@ const ShowPage = ({ art }) => {
 
     checkEntryData(slugNum, art);
 
-    return <> {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
+    return (
+    <> 
+    <a onClick={() => router.back()}>Return</a>
+    {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> }
+    </>
+    )
 }
 
 // =======================
@@ -38,6 +43,7 @@ const ShowPage = ({ art }) => {
 // =======================
 const Content = ( {prev, next, entry }) => {
     let { title, artWork } = entry.fields;
+
     return (
         <>
             <Head><title>{title}</title></Head>
