@@ -8,6 +8,10 @@ import Nav from './nav';
 // =======================
 const Header = ({ data, tags, pages }) => {
     let { art } = data;
+    return <ToggleHeader art={art} tags={tags} pages={pages}/>
+}
+
+const HeadComponent = ({ art, tags, pages }) => {
     return (
         <>
         <header className={style.banner}>
@@ -41,15 +45,44 @@ const Pages = ({ pages }) => {
 const Shane = ({ children, href }) => {
     return (
         <aside className={style.hero}>
-            <span className={style.subheader}>illustrator</span>
+            <h2 className={style.subheader}>illustrator</h2>
             <h1 className={style.logo}>
-                <Link href={href}>
-                    <a>{children}</a>
-                </Link>
+                <a href={href}>{children}</a>
             </h1>
-            <span className={style.subheader}>comic artist</span>
+            <h2 className={style.subheader}>comic artist</h2>
         </aside>
     )
+}
+
+//=================
+// HIDE/SHOW TAGS NAVIGATION DEPENDING ON PAGE
+//=================
+const ToggleHeader = ({ art, tags, pages }) => {
+    const router = useRouter();
+    const { query, pathname, route } = router;
+    let slug;
+  
+    // Determine what page you're on
+    const checkIfInPages = (pathname, query) => {
+        let { page, param } = query;
+        let header =  <HeadComponent art={art} tags={tags} pages={pages} />;
+
+            if(pathname !== '/' && page) { // If you're not on the home page, but on the [...page] component. Aka show page.
+                slug = page[page.length-1];
+                let artId = page[page.length-2];
+                let checkArtwork = art[artId];
+    
+                if(checkArtwork) { // Check if url has necessary data to pull artwork api & that it exists/matches. If it does, do not show header.
+                    let { id } = checkArtwork.sys;
+                    if(slug === id) header = null;
+                } else return header  // if you cant pull art data, show header
+            } 
+            else if(param) header = null; // If you're on the  [...param] component don't show header. Aka about/contact pages
+            else return header;
+        }
+    
+    const toggleHeader = checkIfInPages(pathname, query);
+    return <>{toggleHeader}</>;
 }
 
 

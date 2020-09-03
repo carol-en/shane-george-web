@@ -3,9 +3,8 @@
 .banner {
     background: $bg-color;
     text-align: center;
-    position: relative;
     padding: 1rem;
-    z-index: 1;
+    font-size: 1.25em;
 }
 
 .hero {
@@ -52,6 +51,7 @@ a.links {
 a:hover.links, a:active.links, a:focus.links {
     color: $accent-color;
     outline: 0;
+    text-decoration: underline;
 }
 
 
