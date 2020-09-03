@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import Custom404 from '../../pages/404';
+import Header from '../layout/header';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
@@ -25,6 +27,7 @@ const ShowPage = ({ art }) => {
                 // if previous item exists, save it
                 if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
             }
+            else entry = null;
         }
     }
 
@@ -32,8 +35,7 @@ const ShowPage = ({ art }) => {
 
     return (
     <> 
-    <a onClick={() => router.back()}>Return</a>
-    {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> }
+    {entry ? <Content prev={prev} next={next} entry={entry} /> : <Custom404 />}
     </>
     )
 }
@@ -42,18 +44,20 @@ const ShowPage = ({ art }) => {
 // RENDER SHOW CONTENT
 // =======================
 const Content = ( {prev, next, entry }) => {
+    const router = useRouter(); 
     let { title, artWork } = entry.fields;
 
     return (
         <>
             <Head><title>{title}</title></Head>
             <section>
-                    <Image image={artWork} />
-                    <DescAndInfo entry={entry} />
-                
-                    {/* Prev & Next art links */}
-                    {prev && <PrevLink prev={prev} /> } 
-                    {next && <NextLink next={next} /> }
+                <a onClick={() => router.back()}>Return</a>
+                <Image image={artWork} />
+                <DescAndInfo entry={entry} />
+            
+                {/* Prev & Next art links */}
+                {prev && <PrevLink prev={prev} /> } 
+                {next && <NextLink next={next} /> }
             </section>
         </>
     )

@@ -12,13 +12,16 @@ const Header = ({ data, tags, pages }) => {
 }
 
 const HeadComponent = ({ art, tags, pages }) => {
+    const router = useRouter();
+    const { param } = router.query;
+    
     return (
         <>
         <header className={style.banner}>
             <Pages pages={pages} />
             <Shane href="/">Shane George</Shane>
         </header>
-        <Nav tags={tags} art={art} />
+        {!param && <Nav tags={tags} art={art} />}
         </>
     )
 }
@@ -75,9 +78,10 @@ const ToggleHeader = ({ art, tags, pages }) => {
                 if(checkArtwork) { // Check if url has necessary data to pull artwork api & that it exists/matches. If it does, do not show header.
                     let { id } = checkArtwork.sys;
                     if(slug === id) header = null;
-                } else return header  // if you cant pull art data, show header
+                    else return header; // If slug & art id don't match, show header
+                } else return header  // If you cant pull art data, show header
             } 
-            else if(param) header = null; // If you're on the  [...param] component don't show header. Aka about/contact pages
+            else if(param) return header; // If you're on the  [...param] component don't show header. Aka about/contact pages
             else return header;
         }
     

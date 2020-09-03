@@ -21,9 +21,27 @@ body, html {
 }
 
 a {
+  color: $accent-color-3;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 a:hover {
-  cursor: pointer;
+  color: $accent-color;
+  text-decoration: none;
+}
+
+.error_404  {
+  background: $accent-color-2;
+  text-align: center;
+  padding: 6rem;
+  font-size: 1.30em;
+  color: $black-color;
+
+  h1 {
+    font-size: 4em;
+    font-family: $lato-font;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
+import Custom404 from '../../pages/404';
 
 
 // https://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/
@@ -21,8 +22,9 @@ const Thumbnails = ({ art }) => {
         let thumbnail = <div className={style.thumbnail} key={i}>{img}</div>;
         if(pathname) {
             let slug = pathname[pathname.length-1];
+            let artPath = pathname.includes('art');
             let hasTag = category.includes(slug);
-            if(hasTag) return thumbnail;
+            if(artPath && hasTag) return thumbnail;
         } 
         else return thumbnail;
     }
