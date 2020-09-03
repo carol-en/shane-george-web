@@ -2,13 +2,20 @@
 
 
 .content {
-    width: 100%;
-    min-height: 100%;
-    // background: $accent-color-2;
+    background: $accent-color-2;
     padding: 6rem;
     font-family: $lato-font;
     font-size: 1.30em;
     line-height: 1.7em;
+
+    a {
+        color: $accent-color-3;
+    }
+
+    a:hover {
+        color: $accent-color;
+        text-decoration: none;
+    }
 }
 
 .title {

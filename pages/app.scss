@@ -16,16 +16,18 @@ body, html {
   .container {
     color: $bg-color;
     max-width: 100%;
-    min-height: 100%;
-    background: pink;
+    min-height: 100vh;
+    background: $bg-color;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    justify-content: space-between;
 }
 
-main {
+header, main {
   flex-grow: 1;
+  border: 1px solid gold;
 }
+
 
 a {
   text-decoration: underline;
