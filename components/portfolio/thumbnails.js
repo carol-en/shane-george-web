@@ -1,28 +1,28 @@
 import Link from 'next/link';
 import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
-
-
-// https://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/
-// FOR GRID GALLERY
+import Custom404 from '../../pages/404';
 
 // =======================
 // PORTFOLIO'S THUMBNAILS ARE GENERATED & FILTERED OUT HERE
 // =======================
 const Thumbnails = ({ art }) => { 
     const router = useRouter();
-    const pathname  = router.query.page;
+    const { query, route, pathname } = router;
+    const { page } = query;
     const artList = [];
+
 
     // =======================
     // DECIDE TO LIST ALL THUMBNAILS OR FILTER DEPENDING ON PAGE
     // =======================
     const filterThumbnails = (category, img, i) => {
         let thumbnail = <div className={style.thumbnail} key={i}>{img}</div>;
-        if(pathname) {
-            let slug = pathname[pathname.length-1];
+        if(page) {
+            let slug = page[page.length-1];
+            let artPath = page.includes('art');
             let hasTag = category.includes(slug);
-            if(hasTag) return thumbnail;
+            if(artPath && hasTag) return thumbnail;
         } 
         else return thumbnail;
     }
@@ -59,7 +59,24 @@ const Thumbnails = ({ art }) => {
         // Thumbnails generated here
        return <>{thumbnails}</>
     }
-    return generateThumbnails(art, artList);
+    // =======================
+    // CHECK IF URL IS IS CORRECT 
+    // =======================
+    const checkRouting = () => {
+        if(route === '/') { // If route is at home route
+            return generateThumbnails(art, artList);
+            } 
+        else if(pathname) { // if route is at [...params] component
+            const artPath = page.includes('art');
+            // check if /art/ is correct or not
+            if(artPath)  return generateThumbnails(art, artList);    
+            else if(!artPath) return <Custom404 />
+        }      
+    }
+    // Checking routing, everything else generates after checking routing
+    const fillThumbnails = checkRouting();
+
+    return fillThumbnails;
 }
 
 export default Thumbnails;

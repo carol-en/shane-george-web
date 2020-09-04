@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import Custom404 from '../../pages/404';
+import Header from '../layout/header';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
@@ -9,7 +11,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 // =======================
 const ShowPage = ({ art }) => {
     const router = useRouter(); 
-    const params = router.query.page; // Get all params
+    const { query, route, pathname } = router;
+    const { page } = query;
+    const params = page; // Get all params
     const slug = params[params.length-1]; // Get id params
     const slugNum = Number(params[1]); // Get Index of entry from params
     let prev;
@@ -25,15 +29,24 @@ const ShowPage = ({ art }) => {
                 // if previous item exists, save it
                 if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
             }
+            else entry = null;
         }
     }
 
-    checkEntryData(slugNum, art);
+    const checkRouting = () => {
+        if(pathname) { // if route is at [...params] component
+            const artPath = page.includes('art');
+            // check if /art/ is correct or not
+            if(artPath)  checkEntryData(slugNum, art);   
+            else if(!artPath) return <Custom404 />
+        }      
+    }
 
+    checkRouting();
+    
     return (
     <> 
-    <a onClick={() => router.back()}>Return</a>
-    {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> }
+    {entry ? <Content prev={prev} next={next} entry={entry} /> : <Custom404 />}
     </>
     )
 }
@@ -42,18 +55,20 @@ const ShowPage = ({ art }) => {
 // RENDER SHOW CONTENT
 // =======================
 const Content = ( {prev, next, entry }) => {
+    const router = useRouter(); 
     let { title, artWork } = entry.fields;
 
     return (
         <>
             <Head><title>{title}</title></Head>
             <section>
-                    <Image image={artWork} />
-                    <DescAndInfo entry={entry} />
-                
-                    {/* Prev & Next art links */}
-                    {prev && <PrevLink prev={prev} /> } 
-                    {next && <NextLink next={next} /> }
+                <a onClick={() => router.back()}>Return</a>
+                <Image image={artWork} />
+                <DescAndInfo entry={entry} />
+            
+                {/* Prev & Next art links */}
+                {prev && <PrevLink prev={prev} /> } 
+                {next && <NextLink next={next} /> }
             </section>
         </>
     )

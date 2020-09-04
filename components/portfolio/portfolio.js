@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import FilterArt from '../portfolio/filterArt';
 import ShowArt from '../portfolio/showArt';
 import Redirect from '../redirect';
+import Custom404 from '../../pages/404';
 
 // =======================
 // HANDLES ROUTING FOR PORTFOLIO GALLERIES
@@ -45,7 +46,7 @@ const Portfolio = ( { art, tags }) => {
             (artSlug)   ?   <Redirect />               :  // if url is only at '/art', redirect home
             (tagsSlug)  ?   <FilterArt   art={art} />  : // if you're on a tagged art pg
             (showSlug)  ?   <ShowArt     art={art} />  : // if you're viewing a piece of art
-            <h1>Go Back home or 404</h1> // if no page exists 
+            <Custom404 /> // if no page exists 
         } 
         </>
         )
