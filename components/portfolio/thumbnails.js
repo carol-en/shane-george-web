@@ -3,10 +3,6 @@ import style from './portfolio.module.scss';
 import { useRouter } from 'next/router';
 import Custom404 from '../../pages/404';
 
-
-// https://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/
-// FOR GRID GALLERY
-
 // =======================
 // PORTFOLIO'S THUMBNAILS ARE GENERATED & FILTERED OUT HERE
 // =======================
@@ -15,8 +11,6 @@ const Thumbnails = ({ art }) => {
     const { query, route, pathname } = router;
     const { page } = query;
     const artList = [];
-
-    // console.log(page, route, pathname)
 
 
     // =======================
@@ -63,24 +57,26 @@ const Thumbnails = ({ art }) => {
             return filterThumbnails(category, thumbArt, i);
        });
         // Thumbnails generated here
-    
        return <>{thumbnails}</>
     }
-
-    if(route === '/') {
-        return generateThumbnails(art, artList);
-        } 
-    else if(pathname) {
-        const artPath = page[0];
-        if(artPath === 'art') {
+    // =======================
+    // CHECK IF URL IS IS CORRECT 
+    // =======================
+    const checkRouting = () => {
+        if(route === '/') { // If route is at home route
             return generateThumbnails(art, artList);
-            }
-        else if(artPath !== 'art') {
-            return <Custom404 />
-            }
+            } 
+        else if(pathname) { // if route is at [...params] component
+            const artPath = page.includes('art');
+            // check if /art/ is correct or not
+            if(artPath)  return generateThumbnails(art, artList);    
+            else if(!artPath) return <Custom404 />
+        }      
     }
+    // Checking routing, everything else generates after checking routing
+    const fillThumbnails = checkRouting();
 
-    // return generateThumbnails(art, artList);
+    return fillThumbnails;
 }
 
 export default Thumbnails;

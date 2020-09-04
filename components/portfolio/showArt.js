@@ -11,7 +11,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 // =======================
 const ShowPage = ({ art }) => {
     const router = useRouter(); 
-    const params = router.query.page; // Get all params
+    const { query, route, pathname } = router;
+    const { page } = query;
+    const params = page; // Get all params
     const slug = params[params.length-1]; // Get id params
     const slugNum = Number(params[1]); // Get Index of entry from params
     let prev;
@@ -31,8 +33,17 @@ const ShowPage = ({ art }) => {
         }
     }
 
-    checkEntryData(slugNum, art);
+    const checkRouting = () => {
+        if(pathname) { // if route is at [...params] component
+            const artPath = page.includes('art');
+            // check if /art/ is correct or not
+            if(artPath)  checkEntryData(slugNum, art);   
+            else if(!artPath) return <Custom404 />
+        }      
+    }
 
+    checkRouting();
+    
     return (
     <> 
     {entry ? <Content prev={prev} next={next} entry={entry} /> : <Custom404 />}

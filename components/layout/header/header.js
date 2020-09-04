@@ -76,8 +76,10 @@ const ToggleHeader = ({ art, tags, pages }) => {
                 let checkArtwork = art[artId];
     
                 if(checkArtwork) { // Check if url has necessary data to pull artwork api & that it exists/matches. If it does, do not show header.
+                    const artPath = page.includes('art');
                     let { id } = checkArtwork.sys;
-                    if(slug === id) header = null;
+                    
+                    if(slug === id && artPath) header = null;
                     else return header; // If slug & art id don't match, show header
                 } else return header  // If you cant pull art data, show header
             } 
