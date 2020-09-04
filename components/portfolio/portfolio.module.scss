@@ -1,5 +1,8 @@
 @import '../../variables.scss';
 
+// ===================
+// Thumbnails styling
+// ===================
 .port {
     display: flex;
     flex-flow: wrap row;
@@ -55,4 +58,18 @@
 
   .thumbnail a.project:focus {
       outline: none;
+  }
+
+  // ===================
+  // Show page styling
+  // ===================
+
+  .content {
+      color: $accent-color-2;
+  }
+
+  .row {
+      display: flex;
+      flex-flow: nowrap row;
+      justify-content: space-between;
   }

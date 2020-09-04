@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import Link from 'next/link';
 import Custom404 from '../../pages/404';
-import Header from '../layout/header';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import style from './portfolio.module.scss';
 
 // =======================
 // CHECK IS ENTRY EXISTS BEFORE RENDERING
@@ -60,15 +59,16 @@ const Content = ( {prev, next, entry }) => {
 
     return (
         <>
-            <Head><title>{title}</title></Head>
-            <section>
-                <a onClick={() => router.back()}>Return</a>
-                <Image image={artWork} />
-                <DescAndInfo entry={entry} />
-            
-                {/* Prev & Next art links */}
-                {prev && <PrevLink prev={prev} /> } 
-                {next && <NextLink next={next} /> }
+            <section className={style.content}>
+                <aside className={style.row}>
+                    <a onClick={() => router.back()}>Return</a>
+                    <a href="/">Exit</a>
+                </aside>
+                <aside className={style.row}>
+                    {prev && <PrevLink prev={prev} /> } 
+                    <Image image={artWork} entry={entry} />
+                    {next && <NextLink next={next} /> }
+                </aside>
             </section>
         </>
     )
@@ -76,7 +76,7 @@ const Content = ( {prev, next, entry }) => {
 // =======================
 // RENDER ARTWORK IMAGE
 // =======================
-const Image = ({ image }) => {
+const Image = ({ image, entry }) => {
     let imge = image.map(art => {
         let { fields, sys } = art;
         let { id } = sys;
@@ -89,7 +89,12 @@ const Image = ({ image }) => {
             </a>
         )
     })
-    return <figure>{imge}</figure>
+    return (
+    <figure className={style.artwork}> 
+        {imge}
+        <DescAndInfo entry={entry} />
+    </figure>
+        )
 }
 
 // =======================
@@ -121,7 +126,7 @@ const DescAndInfo = ({ entry }) => {
       const content = documentToReactComponents(description, options);
 
     return (
-        <aside>
+        <aside className={style.show_data}>
             <h1>Title: {title}</h1>
             <h2>Category: {tags}</h2>
             <section className="description">{content}</section>
