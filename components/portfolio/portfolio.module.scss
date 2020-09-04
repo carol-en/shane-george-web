@@ -1,5 +1,8 @@
 @import '../../variables.scss';
 
+// ===================
+// Thumbnails styling
+// ===================
 .port {
     display: flex;
     flex-flow: wrap row;
@@ -55,4 +58,122 @@
 
   .thumbnail a.project:focus {
       outline: none;
+  }
+
+  // ===================
+  // Show page styling
+  // ===================
+
+  .content {
+      color: $accent-color-2;
+      padding: 3rem;
+      position: relative;
+      z-index: 1;
+  }
+
+  .row {
+
+     position: fixed;
+      width: 100%;
+      padding: 3rem;
+      z-index: 2;
+      top: 0;
+      left: 0;
+
+      a {
+          color: $accent-color-2;
+          font-weight: bold;
+          font-family: $lato-font;
+          font-size: 1.25em;
+          text-decoration: none;
+      }
+
+      a:hover {
+          color: $red-hover-color;
+          text-decoration: underline;
+      }
+
+      a:first-child {
+        float: left;
+    }
+
+      a:last-child {
+        float: right;
+    }
+  }
+
+  .pagi_links {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      margin: 25% 0;
+      padding: 0 3rem;
+
+      a {
+          display: block;
+          background: $accent-color-3;
+          font-size: 0;
+          padding: .5rem;
+          border-radius: 100%; 
+          border: 0 solid $accent-color-3;
+      }
+
+      a:hover {
+        background: $red-hover-color;
+        border: 0 solid  $red-hover-color;
+      }
+
+      a.prev {
+          float: left;
+      }
+
+      a.next {
+          float: right;
+      }
+
+  }
+  .artwork {
+      max-width: 33%;
+      margin: 0 auto;
+
+      img {
+          margin: 0 auto;
+          display: block;
+          text-align: center;
+      }
+
+      a img {
+        border: 1em solid $red-hover-color;
+    }
+
+      a img:hover,
+      a img:active,
+      a img:focus {
+        border: 1em solid $accent-color;
+    }
+  }
+
+  .show_data {
+      text-align: center;
+      font-family: $lato-font;
+      padding-top: 1.5rem;
+
+      h1, h2 {
+          font-size: 2em;
+          text-transform: uppercase;
+          font-weight: bold;
+      }
+
+      h2 {
+          font-size: 1.25em;
+          font-weight: normal;
+          margin-bottom: .75em;
+      }
+
+      .description {
+          display: block;
+          line-height: 1.75em;
+      }
   }
