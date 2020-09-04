@@ -12,17 +12,21 @@ import Custom404 from '../../pages/404';
 // =======================
 const Thumbnails = ({ art }) => { 
     const router = useRouter();
-    const pathname  = router.query.page;
+    const { query, route, pathname } = router;
+    const { page } = query;
     const artList = [];
+
+    // console.log(page, route, pathname)
+
 
     // =======================
     // DECIDE TO LIST ALL THUMBNAILS OR FILTER DEPENDING ON PAGE
     // =======================
     const filterThumbnails = (category, img, i) => {
         let thumbnail = <div className={style.thumbnail} key={i}>{img}</div>;
-        if(pathname) {
-            let slug = pathname[pathname.length-1];
-            let artPath = pathname.includes('art');
+        if(page) {
+            let slug = page[page.length-1];
+            let artPath = page.includes('art');
             let hasTag = category.includes(slug);
             if(artPath && hasTag) return thumbnail;
         } 
@@ -59,9 +63,24 @@ const Thumbnails = ({ art }) => {
             return filterThumbnails(category, thumbArt, i);
        });
         // Thumbnails generated here
+    
        return <>{thumbnails}</>
     }
-    return generateThumbnails(art, artList);
+
+    if(route === '/') {
+        return generateThumbnails(art, artList);
+        } 
+    else if(pathname) {
+        const artPath = page[0];
+        if(artPath === 'art') {
+            return generateThumbnails(art, artList);
+            }
+        else if(artPath !== 'art') {
+            return <Custom404 />
+            }
+    }
+
+    // return generateThumbnails(art, artList);
 }
 
 export default Thumbnails;
