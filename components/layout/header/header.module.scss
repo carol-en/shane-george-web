@@ -3,8 +3,21 @@
 .banner {
     background: $bg-color;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem 1rem;
     font-size: 1.25em;
+
+    @media (max-width: $breakpoint-lg) {
+        padding: 1.5rem 1.5rem;
+        font-size: 1em;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        padding: 1.5rem 1.5rem;
+        font-size: .85em;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+    }
 }
 
 .hero {
@@ -13,12 +26,21 @@
     flex-flow: nowrap row;
     justify-content: space-evenly;
     align-items: center;
-    font-size: 1.1em;
+
+    @media (max-width: $breakpoint-m) {
+        flex-flow: nowrap column;
+    }
 }
 
 .logo {
    flex: 1;
    text-align: center;
+
+   @media (max-width: $breakpoint-m) {
+    flex: 100%;
+    width: 100%;
+    order: 1;
+    }
 }
 
 .logo a {
@@ -28,7 +50,11 @@
     font-size: 2.5em;
     text-decoration: none;
     font-weight: bold;
-    word-spacing: 100vw; 
+    word-spacing: 100vw;
+
+    @media (max-width: $breakpoint-m) {
+        word-spacing: initial;
+    }
 }
 
 .logo a:hover, .logo a:active, .logo a:focus {
@@ -42,6 +68,10 @@
     font-size: 1.5em;
     flex: 2;
     letter-spacing: .05em;
+
+    @media (max-width: $breakpoint-m) {
+        order: 2;
+    }
 }
 
 a.links {
