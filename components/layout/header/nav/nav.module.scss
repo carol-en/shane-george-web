@@ -7,6 +7,7 @@
     display: flex;
     flex-flow: nowrap row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .btn {
@@ -18,6 +19,22 @@
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
+
+    @media (max-width: $breakpoint-lg) {
+        font-size: 1.15em;
+        padding: .70rem;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        font-size: 1em;
+        padding: .60rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        font-size: .80em;
+        padding: .50rem;
+        letter-spacing: .05em;
+    }
 }
 
 .btn:hover, .btn:active, .btn:focus {
