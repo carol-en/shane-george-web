@@ -1,0 +1,29 @@
+@import '../../../variables.scss';
+
+.footer {
+    color: $accent-color;
+    font-size: .80em;
+    text-transform: lowercase;
+
+    a:hover {
+        color: $white-color;
+    }
+
+    p {
+        padding: 1rem;
+        text-align: center;
+
+        @media (max-width: $breakpoint-lg) {
+            padding: .70em;
+        }
+    
+        @media (max-width: $breakpoint-m) {
+            font-size: .85em;
+        }
+    
+    
+        @media (max-width: $breakpoint-sm) {
+            font-size: .80em;
+        }
+    }
+}
