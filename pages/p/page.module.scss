@@ -1,0 +1,60 @@
+@import '../../variables.scss';
+
+
+.content {
+    background: $accent-color-2;
+    padding: 6rem;
+    font-family: $lato-font;
+    font-size: 1.30em;
+    line-height: 1.7em;
+
+    @media (max-width: $breakpoint-lg) {
+        padding: 5rem;
+        font-size: 1.20em;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        padding: 4rem;
+        font-size: 1.10em;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        padding: 3rem;
+        font-size: 1em;
+        text-align: center;
+    }
+
+    a img {
+        border: .65em solid $red-hover-color;
+        @extend %transitions;
+
+        @media (max-width: $breakpoint-lg) {
+            border: .55em solid $red-hover-color;
+        }
+    
+        @media (max-width: $breakpoint-m) {
+            border: .45em solid $red-hover-color;
+        }
+    
+        @media (max-width: $breakpoint-sm) {
+            border: .35em solid $red-hover-color;
+        }
+    }
+
+    a img:hover,
+    a img:active,
+    a img:focus {
+        border: .75em solid $accent-color;
+        @extend %transitions;
+    }
+}
+
+.title {
+    font-weight: bold;
+    font-size: 2.25em;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: .05em;
+    margin-bottom: .75em;
+    font-family: $mukta-font;
+}

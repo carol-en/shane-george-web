@@ -1,0 +1,58 @@
+@import '../../../../variables.scss';
+
+.navi {
+    background: $bg-color;
+    text-align: center;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: nowrap row;
+            flex-flow: nowrap row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.btn {
+    padding: .75rem;
+    background: $bg-color;
+    color: $accent-color;
+    display: inline-block;
+    font-size: 1.25em;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+
+    @media (max-width: $breakpoint-lg) {
+        font-size: 1.15em;
+        padding: .70rem;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        font-size: 1em;
+        padding: .60rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        font-size: .80em;
+        padding: .50rem;
+        letter-spacing: .05em;
+    }
+}
+
+.btn:hover, .btn:active, .btn:focus {
+    cursor: pointer;
+    color: $accent-color-2;
+    text-decoration: underline;
+    outline: none;
+}
+
+.active {
+    color: $accent-color-2;
+}

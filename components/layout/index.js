@@ -1,13 +1,3 @@
-import Header from './header';
-import style from './layout.module.scss';
+import Layout from './layout';
 
-export default function Layout(  { children, data } ) {
-    return(
-        <div className="container">
-            <Header data={data} pages={data.pages} tags={data.tagsList} />
-            <main>
-                {children}
-            </main>
-        </div>
-    )
-}
+export default Layout;

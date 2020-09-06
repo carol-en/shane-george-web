@@ -1,15 +1,18 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import Link from 'next/link';
+import Custom404 from '../../pages/404';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import style from './portfolio.module.scss';
 
 // =======================
 // CHECK IS ENTRY EXISTS BEFORE RENDERING
 // =======================
 const ShowPage = ({ art }) => {
     const router = useRouter(); 
-    const params = router.query.page; // Get all params
+    const { query, route, pathname } = router;
+    const { page } = query;
+    const params = page; // Get all params
     const slug = params[params.length-1]; // Get id params
     const slugNum = Number(params[1]); // Get Index of entry from params
     let prev;
@@ -25,37 +28,56 @@ const ShowPage = ({ art }) => {
                 // if previous item exists, save it
                 if(art[i - 1]) prev = { 'data': art[i - 1], 'arr': i - 1 }; 
             }
+            else entry = null;
         }
     }
 
-    checkEntryData(slugNum, art);
+    const checkRouting = () => {
+        if(pathname) { // if route is at [...params] component
+            const artPath = page.includes('art');
+            // check if /art/ is correct or not
+            if(artPath)  checkEntryData(slugNum, art);   
+            else if(!artPath) return <Custom404 />
+        }      
+    }
 
-    return <> {entry ? <Content prev={prev} next={next} entry={entry} /> : <h1>404 Not Found</h1> } </>
+    checkRouting();
+    
+    return (
+    <> 
+    {entry ? <Content prev={prev} next={next} entry={entry} /> : <Custom404 />}
+    </>
+    )
 }
 
 // =======================
 // RENDER SHOW CONTENT
 // =======================
 const Content = ( {prev, next, entry }) => {
+    const router = useRouter(); 
     let { title, artWork } = entry.fields;
+
     return (
-        <>
-            <Head><title>{title}</title></Head>
-            <section>
-                    <Image image={artWork} />
-                    <DescAndInfo entry={entry} />
-                
-                    {/* Prev & Next art links */}
-                    {prev && <PrevLink prev={prev} /> } 
-                    {next && <NextLink next={next} /> }
-            </section>
-        </>
+        <section className={style.content}>
+            <aside className={style.row}>
+                <a onClick={() => router.back()}>return</a>
+                <a href="/">X</a>
+            </aside>
+
+            <aside className={style.pagi_links}>
+                {prev && <PrevLink prev={prev}/>} 
+                {next && <NextLink next={next} />}
+            </aside>
+
+            <Image image={artWork} entry={entry} />
+
+        </section>
     )
 }
 // =======================
 // RENDER ARTWORK IMAGE
 // =======================
-const Image = ({ image }) => {
+const Image = ({ image, entry }) => {
     let imge = image.map(art => {
         let { fields, sys } = art;
         let { id } = sys;
@@ -68,7 +90,14 @@ const Image = ({ image }) => {
             </a>
         )
     })
-    return <figure>{imge}</figure>
+    return (
+        <aside className={style.artwork}>
+            <figure> 
+                {imge}
+            </figure>
+            <DescAndInfo entry={entry} />
+        </aside>
+        )
 }
 
 // =======================
@@ -100,11 +129,11 @@ const DescAndInfo = ({ entry }) => {
       const content = documentToReactComponents(description, options);
 
     return (
-        <aside>
+        <div className={style.show_data}>
             <h1>Title: {title}</h1>
             <h2>Category: {tags}</h2>
-            <section className="description">{content}</section>
-        </aside>
+            <span className={style.description}>{content}</span>
+        </div>
     )
 }
 // =======================
@@ -116,7 +145,7 @@ const DescAndInfo = ({ entry }) => {
         let { id } = prev.data.sys;
         let i = prev.arr;
 
-        return <Link href={`/art/${i}/${id}`}><a>Previous Art</a></Link>;
+        return <Link href={`/art/${i}/${id}`}><a className={style.prev}>Previous Art</a></Link>;
     }
 
     // Link to next art component
@@ -124,7 +153,7 @@ const DescAndInfo = ({ entry }) => {
         let { id } = next.data.sys;
         let i = next.arr;
 
-        return <Link href={`/art/${i}/${id}`}><a>Next Art</a></Link>;
+        return <Link href={`/art/${i}/${id}`}><a className={style.next}>Next Art</a></Link>;
     }
 
 export default ShowPage;

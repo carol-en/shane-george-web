@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-
+import style from './page.module.scss';
 // =======================
 // COMPONENT FOR STATIC PAGES
 // =======================
@@ -21,7 +21,7 @@ const Page = ({ pages }) => {
 
    const pageSlug = getPageSlug(pages, param);
    return (
-       <section>
+       <section className={style.content}>
            {(pageSlug) ? <Entry pages={pages} param={param}/> : <h1>404</h1>}
        </section>
    )
@@ -64,7 +64,7 @@ const Entry = ({ pages, param }) => {
       const content = documentToReactComponents(text, options);
     return (
         <>
-            <h1>{title}</h1>
+            <h1 className={style.title}>{title}</h1>
             {content}
         </>
     );
