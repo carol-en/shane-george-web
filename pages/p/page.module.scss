@@ -26,6 +26,7 @@
 
     a img {
         border: .65em solid $red-hover-color;
+        @extend %transitions;
 
         @media (max-width: $breakpoint-lg) {
             border: .55em solid $red-hover-color;
@@ -44,6 +45,7 @@
     a img:active,
     a img:focus {
         border: .75em solid $accent-color;
+        @extend %transitions;
     }
 }
 

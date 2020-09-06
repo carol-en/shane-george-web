@@ -24,6 +24,7 @@ a {
   color: $accent-color-3;
   text-decoration: underline;
   cursor: pointer;
+  @extend %transitions;
 }
 
 a:hover {
