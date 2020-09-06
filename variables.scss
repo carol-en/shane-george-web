@@ -22,3 +22,13 @@ $mukta-font: 'Mukta', sans-serif;
 $breakpoint-sm: 550px;
 $breakpoint-m: 850px;
 $breakpoint-lg: 1150px;
+
+////////////////////////
+// EXTENTIONS
+////////////////////////
+%transitions {
+    -webkit-transition: all 0.3s 0s ease-in-out;
+    -moz-transition: all 0.3s 0s ease-in-out;
+    -o-transition: all 0.3s 0s ease-in-out;
+    transition: all 0.3s 0s ease-in-out;
+}
