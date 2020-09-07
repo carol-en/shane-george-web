@@ -1,8 +1,9 @@
-import '../global.scss';
 import Layout from '../components/layout';
 import App from 'next/app';
-import fetch from 'isomorphic-unfetch';
+import Head from 'next/head';
 const { createClient } = require("contentful");
+import 'bulma/css/bulma.css';
+import './app.scss';
 
 const contentfulClient = createClient({
   space: "kj7xlq8esifs",
@@ -13,9 +14,12 @@ const contentfulClient = createClient({
 function MyApp({ Component, pageProps, data, artEntries, pageEntries }) {
   
     return (
+      <>
+      <Head><title>Shane George Art</title></Head>
       <Layout data={data}>
         <Component {...pageProps} {...data}/>
       </Layout>
+      </>
     )
   }
 

@@ -1,14 +1,322 @@
-.folio {
-    border: 1px solid pink;
-    width: 100%;
-}
+@import '../../variables.scss';
 
+// ===================
+// Thumbnails styling
+// ===================
 .port {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: wrap row;
-    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: wrap row;
+            flex-flow: wrap row;
+    position: relative;
+    justify-items: center;
+
+    @media (max-width: $breakpoint-sm) {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: nowrap column;
+                flex-flow: nowrap column;
+    }
 }
 
-.card {
-    border: 1px solid gold;
+.thumbnail {
+    -webkit-box-flex: 20%;
+        -ms-flex: 20%;
+            flex: 20%;
+    max-width: 20%;
+
+    @media (max-width: $breakpoint-lg) {
+        -webkit-box-flex: 33.33%;
+            -ms-flex: 33.33%;
+                flex: 33.33%;
+        max-width: 33.33%;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        -webkit-box-flex: 50%;
+            -ms-flex: 50%;
+                flex: 50%;
+        max-width: 50%;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        -webkit-box-flex: 100%;
+            -ms-flex: 100%;
+                flex: 100%;
+        max-width: 100%;
+    }
 }
+
+  .project {
+      display: block;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      z-index: 2;
+
+      img {
+        vertical-align: middle;
+        width: 100%;
+      }
+  }
+
+  .proj_name {
+      position: absolute;
+      z-index: 3;
+      width: 100%;
+      height: 0;
+      top: 0;
+      left: 0;
+      text-align: center;
+      padding: 35% 0;
+      color: $white-color;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 2em;
+      word-spacing: 100vw; 
+      opacity: 0;
+      @extend %transitions;
+
+      @media (max-width: $breakpoint-lg) {
+        font-size: 2.5em;
+        padding: 25% 0;
+    }
+
+    @media (max-width: $breakpoint-m) {
+        padding: 30% 0;
+    }
+
+
+    @media (max-width: $breakpoint-sm) {
+        font-size: 3em;
+        padding: 35% 0;
+    }
+  }
+
+  .thumbnail:hover .proj_name, 
+  .thumbnail:active .proj_name , 
+  .thumbnail a.project:focus .proj_name {
+      background: rgba($red-hover-color, 0.8);
+      opacity: 1;
+      height: 100%;
+  }
+
+  .thumbnail a.project:focus {
+      outline: none;
+  }
+
+
+  
+  // ===================
+  // Show page styling
+  // ===================
+
+  .content {
+      color: $accent-color-2;
+      padding: 3rem;
+      position: relative;
+      font-size: 1em;
+      z-index: 1;
+
+      @media (max-width: $breakpoint-lg) {
+        padding: 3rem;
+        font-size: .95em;
+    }
+
+      @media (max-width: $breakpoint-m) {
+        padding: 2rem;
+        font-size: .85em;
+    }
+
+      @media (max-width: $breakpoint-sm) {
+        padding: 1rem;
+        font-size: .75em;
+    }
+  }
+
+  .row {
+
+     position: fixed;
+      width: 100%;
+      padding: 3rem;
+      z-index: 2;
+      top: 0;
+      left: 0;
+
+      @media (max-width: $breakpoint-lg) {
+        padding: 3rem;
+    }
+
+      @media (max-width: $breakpoint-m) {
+        padding: 2rem;
+    }
+
+      @media (max-width: $breakpoint-sm) {
+        position: relative;
+        padding: 0;
+    }
+      
+
+      a {
+          color: $accent-color-2;
+          font-weight: normal;
+          letter-spacing: .1em;
+          font-family: $lato-font;
+          font-size: 1em;
+          text-decoration: none;
+      }
+
+      a:hover {
+          color: $red-hover-color;
+          text-decoration: underline;
+      }
+
+      a:first-child {
+        float: left;
+
+        @media (max-width: $breakpoint-sm) {
+          display: none;
+        }
+    }
+
+      a:last-child {
+        float: right;
+    }
+  }
+
+  .pagi_links {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      margin: 25% 0;
+      padding: 0 3rem;
+
+      @media (max-width: $breakpoint-lg) {
+        margin: 35% 0;
+        padding: 0 3rem;
+    }
+
+      @media (max-width: $breakpoint-m) {
+        margin: 45% 0;
+        padding: 0 2rem;
+    }
+
+      @media (max-width: $breakpoint-sm) {
+        position: static;
+        display: block;
+        margin: 0;
+    }
+      
+
+      a {
+          display: block;
+          background: $accent-color-3;
+          font-size: 0;
+          padding: .5rem;
+          border-radius: 100%; 
+          border: 0 solid $accent-color-3;
+
+          @media (max-width: $breakpoint-sm) {
+            font-size: 1.25em;
+            border-radius: 0;
+            background: none;
+            padding: 1em 0;
+          }
+      }
+
+      a:hover {
+        background: $red-hover-color;
+        border: 0 solid  $red-hover-color;
+
+        @media (max-width: $breakpoint-sm) {
+            background: none;
+            color:  $red-hover-color;
+        }
+      }
+
+      a.prev {
+          float: left;
+      }
+
+      a.next {
+          float: right;
+      }
+
+  }
+  .artwork {
+      max-width: 38%;
+      margin: 0 auto;
+
+      @media (max-width: $breakpoint-lg) {
+        max-width: 55%;
+    }
+
+      @media (max-width: $breakpoint-m) {
+        max-width: 75%;
+    }
+
+      @media (max-width: $breakpoint-sm) {
+        max-width: 90%;
+    }
+
+      img {
+          margin: 0 auto;
+          display: block;
+          text-align: center;
+      }
+
+      a img {
+        border: 1em solid $red-hover-color;
+        @extend %transitions;
+    }
+
+      a img:hover,
+      a img:active,
+      a img:focus {
+        border: 1em solid $accent-color;
+    }
+  }
+
+  .show_data {
+      text-align: center;
+      font-family: $lato-font;
+      padding-top: 1.5rem;
+
+      h1, h2 {
+          font-size: 2em;
+          text-transform: uppercase;
+          font-weight: normal;
+      }
+
+      h2 {
+          font-size: 1.25em;
+          margin-bottom: .75em;
+      }
+
+      .description {
+          display: block;
+          line-height: 1.75em;
+          font-weight: light;
+
+          @media (max-width: $breakpoint-sm) {
+              font-size: 1.15em;
+          }
+
+          a {
+            color: $red-color;
+          }
+          
+          a:hover {
+            color: $accent-color-3;
+          }
+
+          a img {
+            margin-bottom: 1em;
+          }
+      }
+  }
