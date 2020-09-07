@@ -33,7 +33,7 @@ const Thumbnails = ({ art }) => {
     const generateThumbnails = (art, list) => {
         // Loop through all art, push into array
         art.map((img, i) => list.push(img));
-        const thumbnails = list.map((thumb, i) => { 
+        const allArt = list.map((thumb, i) => { 
             let { artWork, category } = thumb.fields;
             let entryTitle = thumb.fields.title;
             let { id } = thumb.sys;
@@ -57,6 +57,7 @@ const Thumbnails = ({ art }) => {
             return filterThumbnails(category, thumbArt, i);
        });
         // Thumbnails generated here
+        const thumbnails = allArt.reverse();
        return <>{thumbnails}</>
     }
     // =======================

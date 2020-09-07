@@ -20,13 +20,13 @@
 }
 
 .btn {
-    padding: .75rem;
+    padding: 1.5rem 2rem;
     background: $bg-color;
     color: $accent-color;
     display: inline-block;
-    font-size: 1.25em;
+    font-size: 1.05em;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: normal;
     text-decoration: none;
 
     @media (max-width: $breakpoint-lg) {

@@ -3,7 +3,7 @@
 .banner {
     background: $bg-color;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 2.5rem 2rem;
     font-size: 1.25em;
 
     @media (max-width: $breakpoint-lg) {
@@ -23,7 +23,7 @@
 }
 
 .hero {
-    font-weight: bold;
+    // font-weight: bold;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -70,7 +70,7 @@
     font-family: $lato-font;
     font-size: 2.5em;
     text-decoration: none;
-    font-weight: bold;
+    letter-spacing: .1em;
     word-spacing: 100vw;
 
     @media (max-width: $breakpoint-m) {
@@ -87,10 +87,12 @@
     color: $accent-color-2;
     font-family: $lato-font;
     font-size: 1.5em;
+
     -webkit-box-flex: 2;
         -ms-flex: 2;
             flex: 2;
-    letter-spacing: .05em;
+    letter-spacing: .1em;
+    font-weight: lighter;
 
     @media (max-width: $breakpoint-m) {
         -webkit-box-ordinal-group: 3;
@@ -107,6 +109,11 @@
 
 a.links {
     color: $accent-color-2;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: $mukta-font;
 
     @media (max-width: $breakpoint-m) {
         font-size: .8em;
@@ -132,12 +139,4 @@ a:hover.links, a:active.links, a:focus.links {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-}
-
-.nav a {
-    text-decoration: none;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: $mukta-font;
 }
