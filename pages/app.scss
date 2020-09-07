@@ -11,6 +11,7 @@ body, html {
   color: $accent-color-2;
   font-family: $mukta-font;
   font-size: 1rem;
+  font-weight: 200;
 }
 
   .container {
@@ -46,4 +47,8 @@ a:hover {
     font-weight: bold;
     text-transform: uppercase;
   }
+}
+
+strong, b, strong em, strong i, b em, b i {
+  font-weight: 400;
 }
