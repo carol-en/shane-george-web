@@ -2,10 +2,14 @@
   "name": "shane-app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "12.9.1"
+    },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^14.1.1",
