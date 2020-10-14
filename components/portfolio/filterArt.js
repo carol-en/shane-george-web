@@ -10,6 +10,7 @@ const FilterArt = ({ art, tags }) => {
         <>
         <section className={style.port}>
             <Thumbnails art={art} tags={tags} />
+            {/* This is new */}
         </section>
         </>
     )
